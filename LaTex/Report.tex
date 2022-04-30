@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{subcaption}
 \usepackage[style=numeric,backend=biber]{biblatex}
 \addbibresource{references.bib}
 \begin{document}
@@ -38,13 +39,54 @@ This document is a model and instructions for \LaTeX.
 
 \subsection{Neural Network models}
 \subsubsection{GoogLeNet}
-Of GoogLeNet, multiple Versions have been published, which are often confused with each other. For paper, V2 of the GoogLeNet has been chosen.
+GoogLeNet, was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. The main hallmark of this model is the improved utilisation of the computing resources inside the network. It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
+This model first introduced the idea of an inception module, which can be seen in Figure \ref{fig:x inception module 5x5}.
+A second version of the model was published a year later, which then introduced an improved inception module, which can been seen in Figure \ref{fig:x inception module 3x3}.
+This new version reduced computational costs, as bigger convolutions are disproportionately more expensive. Using two 3x3 convolutions instead it computationally less expensive while improving the performance.
+Although there are is also a V3 and V4 of GoogLeNet, for this paper, the V2 Inception has been used.
+In total the model has 22 layers.
+\begin{figure}[!htbp]
+     \centering
+     \begin{subfigure}[b]{0.25\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{img/inceptionv1.png}
+         \caption{Original Inception module \cite{szegedy_going_2014}}
+         \label{fig:x inception module 5x5}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.22\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{img/incetionv2.png}
+         \caption{V2 Inception module \cite{szegedy_rethinking_2015}}
+         \label{fig:x inception module 3x3}
+     \end{subfigure}
+        \caption{Three simple graphs}
+        \label{fig:three graphs}
+\end{figure}
 
 \subsubsection{VGG-16}
-VGG-16,
+VGG-16, is the biggest of the models used in this paper (Figure \ref{fig:x mode size}).
+It also has been developed as a submission for the ImageNet Challenge, in which it won first and second place for the localization and classification tracks, respectively.
+It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[scale=0.35]{img/model_sizes.png}
+    \caption{top-1 one-crop accuracy versus amount of operations required (circle size represents the amount of parameters)}
+    \label{fig:x mode size}
+\end{figure}
 
 \subsubsection{ResNet}
-ResNet, 
+ResNet, has the highest amount of layers. While there are multiple versions, for this paper a 50 layer version has been chosen.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[scale=0.2]{img/residual block.png}
+    \caption{Residual learning: a building block \cite{he_deep_2015}}
+    \label{fig:x resblock}
+\end{figure}
+In Figure \ref{fig:x mode size} it can be observed, that the model size is in between GoogLeNet and VGG-16, yet the best result can be expected according to this comparision.
+ResNet has been build with the goal of easing the training of deep networks. The network design is based on the concept of chaining multiple residual learning block on a row. One residual leanring block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
+
 
 \subsection{Image datasets}
 \subsubsection{MNIST}
@@ -64,15 +106,20 @@ The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6
     \label{fig:x Cifar10 image samples}
 \end{figure}
 
-\section{Prepare Your Paper Before Styling}
-Before you begin to format your paper, first write and save the content as a 
-separate text file. Complete all content and organizational editing before 
-formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
-proofreading, spelling and grammar. \cite{}
-
-Keep your text and graphic files separate until after the text has been 
-formatted and styled. Do not number text heads---{\LaTeX} will do that 
-for you.
+\section{Implementation}
+In the first subsection \ref{IM} the implementation of the models using the framework Keras will be explained.
+The the subsection \ref{ID}, it will be explained how the datasets have been made compatible with the models.
+\subsection{Model implementation}\label{IM}
+\subsubsection{GoogLeNet}
+\subsubsection{ResNet}
+\subsubsection{VGG-16}
+\subsection{The Datasets}\label{ID}
+The dataset used in this paper, both have a resolution of 28x28 pixels. On top, the Cifar10 dataset has 3 color channels, while the MNIST dataset only has one gray-channel.
+This represents an issue, as the Neural Networks have initially been designed to work with the Microsoft ImageNet dataset. This dataset has 3 color channels and a resolution of 224x224 pixels.
+The goal was to not change the input of the models, as this would have significant implications for the layers following, resulting in a significant change in the model design.
+Therefore, the datasets have been altered as follows to fit the input dimensions of the models.
+\subsubsection{MNIST dataset alterations}
+\subsubsection{Cifar10 dataset alterations}
 
 \subsection{Abbreviations and Acronyms}\label{AA}
 Define abbreviations and acronyms the first time they are used in the text, 
@@ -144,7 +191,7 @@ surrounding equation.
 \item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
 \item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
 \item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
-\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
+\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalise the ``u''; if not, keep using lower-cased.
 \item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
 \item Do not confuse ``imply'' and ``infer''.
 \item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
@@ -160,10 +207,10 @@ should be listed starting from left to right and then moving down to the
 next line. This is the author sequence that will be used in future citations 
 and by indexing services. Names should not be listed in columns nor group by 
 affiliation. Please keep your affiliations as succinct as possible (for 
-example, do not differentiate among departments of the same organization).
+example, do not differentiate among departments of the same organisation).
 
 \subsection{Identify the Headings}
-Headings, or heads, are organizational devices that guide the reader through 
+Headings, or heads, are organisational devices that guide the reader through 
 your paper. There are two types: component heads and text heads.
 
 Component heads identify the different components of your paper and are not 
@@ -174,7 +221,7 @@ table title. Run-in heads, such as ``Abstract'', will require you to apply a
 style (in this case, italic) in addition to the style provided by the drop 
 down menu to differentiate the head from the text.
 
-Text heads organize the topics on a relational, hierarchical basis. For 
+Text heads organise the topics on a relational, hierarchical basis. For 
 example, the paper title is the primary text head because all subsequent 
 material relates and elaborates on this one topic. If there are two or more 
 sub-topics, the next level head (uppercase Roman numerals) should be used 
@@ -205,12 +252,6 @@ copy& More table copy$^{\mathrm{a}}$& &  \\
 \label{tab1}
 \end{center}
 \end{table}
-
-\begin{figure}[htbp]
-\centerline{\includegraphics{img/fig1.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure}
 
 Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
 rather than symbols or abbreviations when writing Figure axis labels to 
@@ -244,7 +285,7 @@ Unless there are six authors or more give all authors' names; do not use
 ``et al.''. Papers that have not been published, even if they have been 
 submitted for publication, should be cited as ``unpublished'' \cite{}. Papers 
 that have been accepted for publication should be cited as ``in press'' \cite{}. 
-Capitalize only the first word in a paper title, except for proper nouns and 
+Capitalise only the first word in a paper title, except for proper nouns and 
 element symbols.
 
 For papers published in translation journals, please give the English 
