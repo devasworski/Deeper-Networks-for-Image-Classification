@@ -1,4 +1,0 @@
-Sworski
-MNIST
-ResNet
-GoogLeNet
