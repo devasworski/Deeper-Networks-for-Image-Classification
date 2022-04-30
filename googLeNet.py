@@ -1,8 +1,6 @@
 from keras import layers
 from keras.layers import Input, Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dense, Dropout, BatchNormalization
 from keras.layers.merge import concatenate
-from keras.datasets import mnist
-from keras.datasets import cifar10
 from keras import Model
 
 def inception(x, filter_1_conv1x1, filter_1_conv1x1_3x3, filter_2_conv1x1_3x3, filter_1_conv1x1_5x5, filter_2_conv1x1_5x5, filter_2_conv3x3_1x1):
@@ -35,7 +33,10 @@ def auxiliary(x, num_classes,name=None):
 	x = layers.Dense(units=num_classes, activation='softmax', name=name)(x)
 	return x
 
-def googlenet(input_layer,num_classes, name="GoogLeNet"):
+def googlenet(num_classes, name="GoogLeNet"):
+
+	#input
+	input_layer = Input(shape = (224, 224, 3))
 
 	# Stage 1
 	x = Conv2D(filters=64, kernel_size=(7,7), strides=2, padding='same', activation='relu')(input_layer)
