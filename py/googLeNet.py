@@ -27,7 +27,7 @@ def inception(x, filter_1_conv1x1, filter_1_conv1x1_3x3, filter_2_conv1x1_3x3, f
 	conv1x1_3x3 = Conv2D(filters=filter_2_conv1x1_3x3, kernel_size=(3,3), strides=1, padding='same', activation='relu')(conv1x1_3x3)
 	
 	# 1x1->3x3->3x3
-	conv1x1__3x3_3x3 = Conv2D(filters=filter_1_conv1x1_3x3_3x3, kernel_size=(1,1), strides=1, padding='same', activation='relu')(x)
+	conv1x1_3x3_3x3 = Conv2D(filters=filter_1_conv1x1_3x3_3x3, kernel_size=(1,1), strides=1, padding='same', activation='relu')(x)
 	conv1x1_3x3_3x3 = Conv2D(filters=filter_2_conv1x1_3x3, kernel_size=(3,3), strides=1, padding='same', activation='relu')(conv1x1_3x3_3x3)
 	conv1x1_3x3_3x3 = Conv2D(filters=filter_2_conv1x1_3x3, kernel_size=(3,3), strides=1, padding='same', activation='relu')(conv1x1_3x3_3x3)
 
