@@ -1,3 +1,4 @@
+# For the model definition, the code from [Khuyen Le](https://medium.com/mlearning-ai/implementation-of-googlenet-on-keras-d9873aeed83c) was used as a basis and then adjusted using the Guide from [Jai Faizy ](https://www.analyticsvidhya.com/blog/2018/10/understanding-inception-network-from-scratch/) and the architecture of the Model was then updated to [V2](https://towardsdatascience.com/a-simple-guide-to-the-versions-of-the-inception-network-7fc52b863202) 
 from keras import layers
 from keras.layers import Input, Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dense, Dropout, BatchNormalization
 from keras.layers.merge import concatenate
