@@ -9,12 +9,12 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 # > The `Dataset` class is an enumeration of the two datasets we will be using in this assignment
 class Dataset(Enum):
-    MNIST = 1
-    CIFAR = 2
+    MNIST = 'MNIST'
+    CIFAR = 'CIFAR'
 # > An enumeration of the optimizers that can be used to train the neural network
 class Optimizer(Enum):
-    Adam = 1
-    SGD = 2
+    Adam = 'Adam'
+    SGD = 'SGD'
 # > The `Runtime` class is an enumeration of the two possible runtimes: `local` and `colab`
 class Runtime(Enum):
     local = 1
@@ -29,8 +29,8 @@ def printAccuracy(model,x_test,y_test):
     :param x_test: the test data
     :param y_test: The actual labels of the test data
     """
-    score = model.evaluate(x_test, y_test, batch_size=100)
-    print("Overall Accuracy:", score[4]*100,'%')
+    score = model.evaluate(x_test, y_test, batch_size=100,metrics=['accuracy'])
+    print("Overall Accuracy:", score[0]*100,'%')
 
 
 def plot_confusion_matrix(model,x_test,y_test, set:Dataset, Modelname:str, opt:Optimizer):
@@ -41,8 +41,8 @@ def plot_confusion_matrix(model,x_test,y_test, set:Dataset, Modelname:str, opt:O
     :param x_test: the test data
     :param y_test: the test labels
     """
-    title = Modelname+' data: '+('MNIST' if set == Dataset.MNIST else 'CIFAR')+' opt: '+('SDG' if opt == Optimizer.SGD else 'Adam')
-    labels = range(10 )if set.MNIST else ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+    title = 'model: '+Modelname+' data: '+set.value+' opt: '+opt.value
+    labels = range(10 )if set == Dataset.MNIST else ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
     pred = model.predict(x_test, batch_size=100)
     confusion_matrix = sklearn.metrics.confusion_matrix(np.argmax(y_test, axis=1),np.argmax(pred[0], axis=1),normalize='true')
     confusionMatrixDisplay = ConfusionMatrixDisplay(confusion_matrix, display_labels=labels)
@@ -51,7 +51,7 @@ def plot_confusion_matrix(model,x_test,y_test, set:Dataset, Modelname:str, opt:O
     plt.rcParams.update({'font.size': 14})
     ax.set_xlabel('Predicted labels', fontdict=label_font)
     ax.set_ylabel('Observed labels', fontdict=label_font)
-    ax.set_title('Confusion Matrix: '+title, fontdict={'size':'22'})
+    ax.set_title('Confusion Matrix '+title, fontdict={'size':'22'})
     ax.tick_params(axis='both', which='major', labelsize=14)
     confusionMatrixDisplay.plot(ax=ax,cmap = plt.get_cmap('Blues'), xticks_rotation='vertical')
 
