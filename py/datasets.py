@@ -9,6 +9,12 @@ num_classes=10
 final_shape=(224,224)
 
 def scale(data):
+        """
+        It takes in a batch of images and resizes them to the final shape of the image
+        
+        :param data: This is the data that we want to scale
+        :return: the scaled images and the labels.
+        """
         (images,y) = data
         img_rgb = []
         for img in images:
@@ -20,6 +26,12 @@ def scale(data):
 
 # based on https://fantashit.com/transfer-learning-vgg16-using-mnist/
 def to_rgb(data):
+        """
+        It takes the data, resizes it to the final shape, and converts it to RGB
+        
+        :param data: the data to be transformed
+        :return: the images and the labels.
+        """
         (images,y) = data
         img_rgb = []
         for img in images:
@@ -31,18 +43,27 @@ def to_rgb(data):
         return img_rgb,y
 
 def getCifar():
-    (x_train, y_train), (x_test, y_test) = cifar10.load_data()
-    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
-    train = (x_train,y_train)
-    test = (x_test,y_test)
-    val = (x_val,y_val)
-    return map(scale, [train, test, val])
+        """
+        It loads the CIFAR-10 dataset, splits it into training, validation, and test sets, and scales images
+        :return: a tuple of tuples. Each tuple contains the data and the labels.
+        """
+        (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+        x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
+        train = (x_train,y_train)
+        test = (x_test,y_test)
+        val = (x_val,y_val)
+        return map(scale, [train, test, val])
 
 
 def getMnist():
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
-    train = (x_train,y_train)
-    test = (x_test,y_test)
-    val = (x_val,y_val)
-    return map(to_rgb, [train, test, val])
+        """
+        It loads the MNIST dataset, splits it into training, validation and test sets, and converts the
+        images to RGB
+        :return: a tuple of tuples. Each tuple contains the data and the labels.
+        """
+        (x_train, y_train), (x_test, y_test) = mnist.load_data()
+        x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
+        train = (x_train,y_train)
+        test = (x_test,y_test)
+        val = (x_val,y_val)
+        return map(to_rgb, [train, test, val])

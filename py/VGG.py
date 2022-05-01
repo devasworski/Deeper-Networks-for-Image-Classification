@@ -4,6 +4,14 @@ from keras.layers.merge import concatenate
 from keras import Model
 
 def vgg16(classes=10, name="VGG_16"):
+	"""
+	> The function takes in the number of classes and the name of the model as input and returns a Keras
+	model with the architecture of VGG16
+	
+	:param classes: number of classes in the dataset, defaults to 10 (optional)
+	:param name: The name of the model, defaults to VGG_16 (optional)
+	:return: A model object
+	"""
 
 	#input
 	input_layer = Input(shape = (224,224,3))
