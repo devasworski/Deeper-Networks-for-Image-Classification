@@ -6,7 +6,7 @@ from keras import Model
 def vgg16(classes=10, name="VGG_16"):
 
 	#input
-	input_layer = Input(shape = (224, 224, 3))
+	input_layer = Input(shape = (224,224,3))
 
 	# block 1
 	x = layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu',  padding='same')(input_layer)

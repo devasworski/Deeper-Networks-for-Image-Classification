@@ -84,13 +84,13 @@ ResNet, has the highest amount of layers. While there are multiple versions, for
     \caption{Residual learning: a building block \cite{he_deep_2015}}
     \label{fig:x resblock}
 \end{figure}
-In Figure \ref{fig:x mode size} it can be observed, that the model size is in between GoogLeNet and VGG-16, yet the best result can be expected according to this comparision.
-ResNet has been build with the goal of easing the training of deep networks. The network design is based on the concept of chaining multiple residual learning block on a row. One residual leanring block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
+In Figure \ref{fig:x mode size} it can be observed, that the model size is in between GoogLeNet and VGG-16, yet the best result can be expected according to this comparison.
+ResNet has been build with the goal of easing the training of deep networks. The network design is based on the concept of chaining multiple residual learning block on a row. One residual learning block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
 
 
 \subsection{Image datasets}
 \subsubsection{MNIST}
-The MNIST database contains 70,000 28x28 black and white images. 60,000 images are for training and 10,000 images for testing. The images' portrait hand written numbers from 0 to 9. \cite{yann_lecun_mnist_nodate} Examples of the classes can be seen in Figure \ref{fig:x MNIST image samples}.
+The MNIST database contains 70,000 28x28 black and white images. 60,000 images are for training and 10,000 images for testing. The images' portrait handwritten numbers from 0 to 9. \cite{yann_lecun_mnist_nodate} Examples of the classes can be seen in Figure \ref{fig:x MNIST image samples}.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[scale=0.35]{img/mnist_sample.jpeg}
@@ -114,12 +114,22 @@ The the subsection \ref{ID}, it will be explained how the datasets have been mad
 \subsubsection{ResNet}
 \subsubsection{VGG-16}
 \subsection{The Datasets}\label{ID}
-The dataset used in this paper, both have a resolution of 28x28 pixels. On top, the Cifar10 dataset has 3 color channels, while the MNIST dataset only has one gray-channel.
-This represents an issue, as the Neural Networks have initially been designed to work with the Microsoft ImageNet dataset. This dataset has 3 color channels and a resolution of 224x224 pixels.
+
+The dataset used in this paper, both have a resolution of 28x28 pixels. On top, the Cifar10 dataset has 3 colour channels, while the MNIST dataset only has one grey channel.
+This represents an issue, as the Neural Networks have initially been designed to work with the Microsoft ImageNet dataset. This dataset has 3 colour channels and a resolution of 224x224 pixels.
 The goal was to not change the input of the models, as this would have significant implications for the layers following, resulting in a significant change in the model design.
 Therefore, the datasets have been altered as follows to fit the input dimensions of the models.
+
 \subsubsection{MNIST dataset alterations}
+The MNIST dataset originally has the shape (28,28,1), while our models required an input shape of (224,224,3). 
+In order to change the dimensionality, the OpenCV library has been used. Using OpenCV, the image has been interpolated to fit the 224x224 image size. 
+Afterwards, the image has been stacked three times, so that we obtain our three channel input. Although, there is the OpenCV function \verb|cv2.cvtColor(src, cv2.COLOR_GRAY2RGB)|, 
+which can convert from greyscale to RGB, the results are not different from our stacked layers. 
+This is due to the unique properties the MNIST dataset has. Using the stacked layers, is computational much more lightweight.
+
 \subsubsection{Cifar10 dataset alterations}
+The Cifar10 dataset is already in RGB. Therefore, we do not need to convert it into a different colour space. 
+Therefore, this dataset has been interpolated from the shape (28,28,3) to (224,224,3) using the OpenCV library.
 
 \subsection{Abbreviations and Acronyms}\label{AA}
 Define abbreviations and acronyms the first time they are used in the text, 

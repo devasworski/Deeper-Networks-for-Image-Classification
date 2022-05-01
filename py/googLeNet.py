@@ -71,6 +71,6 @@ def googlenet(num_classes, name="GoogLeNet"):
 	
 	# Output (Stage 6)
 	x = Dropout(0.4)(x)
-	x = Dense(1000, activation = 'softmax')(x)
+	x = Dense(num_classes, activation = 'softmax')(x)
   
 	return  Model(input_layer, [x, aux1, aux2], name = name)
