@@ -20,7 +20,7 @@ class Runtime(Enum):
     local = 1
     colab = 2
 
-def printAccuracy(model,x_test,y_test):
+def printAccuracy(model,x_test,y_test,index):
     """
     It takes in a model, a test set, and a test label set, and prints out the overall accuracy of the
     model
@@ -29,8 +29,8 @@ def printAccuracy(model,x_test,y_test):
     :param x_test: the test data
     :param y_test: The actual labels of the test data
     """
-    score = model.evaluate(x_test, y_test, batch_size=100,metrics=['accuracy'])
-    print("Overall Accuracy:", score[0]*100,'%')
+    score = model.evaluate(x_test, y_test, batch_size=100)
+    print("Overall Accuracy:", score[index]*100,'%')
 
 
 def plot_confusion_matrix(model,x_test,y_test, set:Dataset, Modelname:str, opt:Optimizer):
@@ -41,7 +41,7 @@ def plot_confusion_matrix(model,x_test,y_test, set:Dataset, Modelname:str, opt:O
     :param x_test: the test data
     :param y_test: the test labels
     """
-    title = 'model: '+Modelname+' data: '+set.value+' opt: '+opt.value
+    title = 'model: '+Modelname+' data: '+str(set.value)+' opt: '+str(opt.value)
     labels = range(10 )if set == Dataset.MNIST else ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
     pred = model.predict(x_test, batch_size=100)
     confusion_matrix = sklearn.metrics.confusion_matrix(np.argmax(y_test, axis=1),np.argmax(pred[0], axis=1),normalize='true')
