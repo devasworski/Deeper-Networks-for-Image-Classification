@@ -157,9 +157,9 @@ The Cifar10 dataset is already in RGB. Therefore, we do not need to convert it i
 Therefore, this dataset has been interpolated from the shape (28,28,3) to (224,224,3) using the OpenCV library.
 
 \subsection{Project structur}
-One goal of this project, is to create a GitHub repository, that is fully documented and allows for easy replication of the  results presented in this paper. 
+This project aims to create a GitHub repository that is fully documented and allows for easy replication of the results presented in this paper. 
 In Figure \ref{dir: file strucutre}, the file structure of this project can be seen.
-All project files, including the Checkpoints are public on \href{https://github.com/devasworski/Deeper-Networks-for-Image-Classification}{GitHub}.
+All project files, are public on \href{https://github.com/devasworski/Deeper-Networks-for-Image-Classification}{GitHub}.
 \begin{figure}[!htbp]
 \dirtree{%
  .1 /.
@@ -217,16 +217,49 @@ The overall accuracy and the confusion Matrix have been recorded. In the followi
 
 \subsection{GoogLeNet}
 Using the SGD optimizer, the Model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
-If we look at the confusion matrix of the Model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels 2, 3 \& 4.
+If we look at the confusion matrix of the Model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels bird, cat & deer, which even as a human are very difficult to distinguish from each other.
 
 We can see a significant reduction in accuracy and a double in training speed with the Adam optimizer.
+In Figure \ref{fig:GoogLeNet Confusion Matrixis} we can clearly see, that using the Adam optimizer in both cases led to no training at all.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrx_GoogLeNet_MNIST_Adam.png}
+        \caption{Confusion Matrix GoogLeNet MNIST Adam}
+        \label{fig:x imatrix_GoogLeNet_MNIST_Adam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_GoogLeNet_MNIST_SGD.png}
+        \caption{Confusion Matrix GoogLeNet MNIST SGD}
+        \label{fig:x matrix_GoogLeNet_MNIST_SGD}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/inceptionv1.png}
+        \caption{Confusion Matrix GoogLeNet Cifar10 Adam}
+        \label{fig:x matrix_GoogLeNet_CIFAR_Adam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/incetionv2.png}
+        \caption{Confusion Matrix GoogLeNet Cifar10 SGD}
+        \label{fig:x matrix_GoogLeNet_CIFAR_SGD}
+    \end{subfigure}
+    \caption{Three simple graphs}
+    \label{fig:GoogLeNet Confusion Matrixis}
+\end{figure}
 
 \begin{table}[htbp]
     \caption{GoogLeNet model accuracy}
     \begin{center}
     \begin{tabular}{|c|c|c|}
     \cline{1-3} 
-    \textit{Model accuracy} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \textit{Model accuracy} & \textbf{\textit{Adam}}& \textbf{\textit{SGD}} \\
     \hline
     \textbf{\textit{MNIST}} & 11.02\% & 98.96\% \\
     \hline
@@ -242,7 +275,7 @@ We can see a significant reduction in accuracy and a double in training speed wi
     \begin{center}
     \begin{tabular}{|c|c|c|}
     \cline{1-3} 
-    \textit{time/step} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \textit{time/step} & \textbf{\textit{Adam}}& \textbf{\textit{SGD}} \\
     \hline
     \textbf{\textit{MNIST}} & 133s 354ms & 258s 688ms \\
     \hline
@@ -260,7 +293,7 @@ We can see a significant reduction in accuracy and a double in training speed wi
     \begin{center}
     \begin{tabular}{|c|c|c|}
     \cline{1-3} 
-    \textit{Model accuracy} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \textit{Model accuracy} & \textbf{\textit{Adam}}& \textbf{\textit{SGD}} \\
     \hline
     \textbf{\textit{MNIST}} & \% & \% \\
     \hline
@@ -276,7 +309,7 @@ We can see a significant reduction in accuracy and a double in training speed wi
     \begin{center}
     \begin{tabular}{|c|c|c|}
     \cline{1-3} 
-    \textit{time/step} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \textit{time/step} & \textbf{\textit{Adam}}& \textbf{\textit{SGD}} \\
     \hline
     \textbf{\textit{MNIST}} &  &  \\
     \hline
@@ -294,7 +327,7 @@ We can see a significant reduction in accuracy and a double in training speed wi
     \begin{center}
     \begin{tabular}{|c|c|c|}
     \cline{1-3} 
-    \textit{Model accuracy} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \textit{Model accuracy} & \textbf{\textit{Adam}}& \textbf{\textit{SGD}} \\
     \hline
     \textbf{\textit{MNIST}} & \% & \% \\
     \hline
@@ -310,7 +343,7 @@ We can see a significant reduction in accuracy and a double in training speed wi
     \begin{center}
     \begin{tabular}{|c|c|c|}
     \cline{1-3} 
-    \textit{time/step} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \textit{time/step} & \textbf{\textit{Adam}}& \textbf{\textit{SGD}} \\
     \hline
     \textbf{\textit{MNIST}} &  &  \\
     \hline
