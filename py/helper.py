@@ -9,6 +9,8 @@ import sklearn.metrics
 import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras.callbacks import ModelCheckpoint
+import os.path
+from os import path
 
 # > The `Dataset` class is an enumeration of the two datasets we will be using in this assignment
 class Dataset(Enum):
@@ -84,6 +86,10 @@ def getDataset(set:Dataset):
     if set == Dataset.MNIST: return datasets.getMnist()
     if set == Dataset.CIFAR: return datasets.getCifar()
 
+def mkdir_if_not_exist(dir):
+    if not path.exists(dir):
+        os.mkdir(dir)
+
 def CheckpointCallback(path):
     """
     It creates a callback that saves the model's weights
@@ -91,4 +97,5 @@ def CheckpointCallback(path):
     :param path: The path to save the model file
     :return: A function that takes in a path and returns a ModelCheckpoint object.
     """
+    mkdir_if_not_exist(path)
     return ModelCheckpoint(filepath=path,verbose=1,save_weights_only=True)
