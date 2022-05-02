@@ -46,9 +46,9 @@ Followed by a conclusion in Chapter \ref{C6}
 
 \subsection{Neural Network models}
 \subsubsection{GoogLeNet}
-GoogLeNet was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. The main hallmark of this Model is the improved utilization of the computing resources inside the network. It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
-This Model first introduced the idea of an inception module, which can be seen in Figure \ref{fig:x inception module 5x5}.
-A second version of the Model was published a year later, which then introduced an improved inception module, which can be seen in Figure \ref{fig:x inception module 3x3}.
+GoogLeNet was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. The main hallmark of this model is the improved utilization of the computing resources inside the network. It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
+This model first introduced the idea of an inception module, which can be seen in Figure \ref{fig:x inception module 5x5}.
+A second version of the model was published a year later, which then introduced an improved inception module, which can be seen in Figure \ref{fig:x inception module 3x3}.
 This new version reduced computational costs, as bigger convolutions are disproportionately more expensive. Using two 3x3 convolutions instead of 5x5 is computationally less expensive while improving the performance.
 Although there are is also a V3 and V4 of GoogLeNet, for this paper, the V2 Inception has been used.
 In total the model has 22 layers.
@@ -74,7 +74,7 @@ In total the model has 22 layers.
 \subsubsection{VGG-16}
 VGG-16, is the biggest of the models used in this paper (Figure \ref{fig:x mode size}).
 It also has been developed as a submission for the ImageNet Challenge, in which it won first and second place for the localization and classification tracks, respectively.
-It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. Ultimately, this Model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
+It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
 
 \begin{figure}[!htbp]
     \centering
@@ -118,16 +118,16 @@ In the first subsection \ref{IM} the implementation of the models using the fram
 In the subsection \ref{ID} it will be explained how the datasets have been made compatible with the models.
 \subsection{Model implementation}\label{IM}
 \subsubsection{GoogLeNet}
-GoogLeNet considering only the parameters, is the most lightweight Model of the three. Nevertheless, it has 108 operational layers ordered in 22 layers, which can be logically segmented into five stages, excluding input and output. 
-The first two stages of the Model consist of multiple 2D convolutions, followed by a \verb|BatchNormalization| layer and a \verb|MaxPooling2D| layer. Using the \verb|BatchNormalization| layer is a unique attribute of the second version of GoogLeNet.
+GoogLeNet considering only the parameters, is the most lightweight model of the three. Nevertheless, it has 108 operational layers ordered in 22 layers, which can be logically segmented into five stages, excluding input and output. 
+The first two stages of the model consist of multiple 2D convolutions, followed by a \verb|BatchNormalization| layer and a \verb|MaxPooling2D| layer. Using the \verb|BatchNormalization| layer is a unique attribute of the second version of GoogLeNet.
 Stage 3 consists of two V2 inceptions, as seen in Figure \ref{fig:x inception module 3x3}, followed by a \verb|MaxPooling2D| layer.
 Stage 4 has five inceptions and two auxiliary modules, followed by a \verb|MaxPooling2D| layer. 
 In Stage 5, we have two inception modules followed by a \verb|GobalAveragePooling2D| layer, equivalent to the 7x7 convolution found in other versions of this network.
-The Model then finishes with a Dropout of 0.4 and a fully connected layer using \verb|softmax| as its activation function.
+The model then finishes with a Dropout of 0.4 and a fully connected layer using \verb|softmax| as its activation function.
 \cite{szegedy_rethinking_2015}
 
 \subsubsection{ResNet}
-For this paper, the ResNet-50 model has been chosen. 
+For this paper, the ResNet-50 Model has been chosen. 
 The number 50 meaning, that the model consist out of 50 layers of residual blocks (Figure \ref{fig:x resblock}) stacked on top of each other. 
 As mentioned before, there are different versions of ResNet, which all hold a different amount of layers. 
 Based on the original paper results, ResNet-50 has the second best results, behind ResNet-110. \cite{he_deep_2015}.  
@@ -136,11 +136,14 @@ In an effort to keep results between the networks comparable, the version accept
 The main final network architecture consists out of 4 blocks, each starting with a convolutional block, followed by a varying number of identity blocks (2,3,5,2).
 
 \subsubsection{VGG-16}
-VGG-16 is the biggest Model of the three, regarding the parameters. 
-Judging based on layers, this Model is the smallest, as it only consists out of 16 layers, which are segmented into 5 blocks. 
-Each block is structured in the same manner. Two or three 2D Convolution, followed by one 2D MaxPolling layer. 
-The 5 blocks are then followed by 3 dense layers, one dropout of 0.5 and a final  fully connected layer using \verb|softmax| as its activation function. 
+VGG-16 is the biggest model of the three regarding the parameters. 
+Based on layers, this model is the smallest, as it only consists of 16 layers, which are segmented into 5 blocks. 
+Each block is structured in the same manner: two or three 2D convolutions, followed by one 2D MaxPolling layer. 
+The five blocks are then followed by three dense layers, one dropout of 0.5 and a final fully connected layer using \verb|softmax| as its activation function. 
 The full network architecture can be seen in Figure \ref{fig:x VGG architecture}. \cite{simonyan_very_2015}
+Unfortunately, this model was too complex for the Google Colab environment, even using Colab Plus. Therefore, the model was modified using suggestions made in the Stack Overflow forum. \cite{gervais_answer_2019}
+The alterations were as follows: each block with three convolutions has been reduced to two, each block with two has been reduced to one convolutional layer, and the final three dense layers have been reduced to only one dense layer. Furthermore, the batch size has been reduced to 32. 
+The rest of the model was not modified.
 
 \begin{figure}[!htbp]
     \centering
@@ -208,13 +211,13 @@ The three other python files define the neural networks, corresponding to their 
 
 
 \section{Results}\label{C4}
-Each Model has been trained over 20 epochs twice for each dataset, once using the Adam optimizer and once using the SGD optimizer. 
+Each model has been trained over 20 epochs twice for each dataset, once using the Adam optimizer and once using the SGD optimizer. 
 The overall accuracy and the confusion Matrix have been recorded. In the following chapter, the results will be presented.
 
 \subsection{GoogLeNet}
 
-Using the SGD optimizer, the Model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
-If we look at the confusion matrix of the Model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels bird, cat \& deer, which even as a human are very difficult to distinguish from each other.
+Using the SGD optimizer, the model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
+If we look at the confusion matrix of the model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels bird, cat \& deer, which even as a human are very difficult to distinguish from each other.
 
 We can see a significant reduction in accuracy and a double in training speed with the Adam optimizer.
 In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNet_CIFAR_Adam} we can clearly see, that using the Adam optimizer in both cases led to no training at all.
