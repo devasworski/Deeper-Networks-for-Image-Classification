@@ -8,6 +8,7 @@
 \usepackage{subcaption}
 \usepackage{dirtree}
 \usepackage[style=numeric,backend=biber]{biblatex}
+\pagestyle{plain}
 \addbibresource{references.bib}
 \usepackage{hyperref}
 \begin{document}
@@ -33,11 +34,15 @@ This paper represents a comparison between different Convolutional Neural Networ
 GoogLeNet, ResNet, VGG-16, MNIST, Image Classification, Deep Learning
 \end{IEEEkeywords}
 
-\section{Introduction}
-This document is a model and instructions for \LaTeX.
-%Please observe the conference page limits. 
+\section{Introduction}\label{C1}
+This paper represents a comparison between different Convolutional Neural Networks. In particular, the models GoogLeNet, VGG-16 and ResNet. These three models are compared on the datasets MNIST and Cifar10.
+This document is split in 6 chapters. The \ref{C1}. Chapter represents a short introduction to the topic and serves as and overview of the document.
+The \ref{C2}. Chapter presented a Literature Review containing a short overview and history of the models and the datasets.
+Chapter \ref{C3} describes the implementation of the models, the conducted experiment and the dataset usage.
+In Chapter \ref{C4} the Finding of the experiments are presented, which are then discussed in Chapter \ref{C5}.
+Followed by a conclusion in Chapter \ref{C6}
 
-\section{Literature Review}
+\section{Literature Review}\label{C2}
 
 \subsection{Neural Network models}
 \subsubsection{GoogLeNet}
@@ -108,7 +113,7 @@ The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6
     \label{fig:x Cifar10 image samples}
 \end{figure}
 
-\section{Methodology}
+\section{Methodology}\label{C3}
 In the first subsection \ref{IM} the implementation of the models using the framework Keras will be explained.
 In the subsection \ref{ID} it will be explained how the datasets have been made compatible with the models.
 \subsection{Model implementation}\label{IM}
@@ -202,7 +207,7 @@ The \verb|helper.py| file, takes care of Hyperparameters as well as evaluating t
 The three other python files define the neural networks, corresponding to their names. Every function within the python files is documented, and the notebooks are divided into descriptive sections.
 
 
-\section{Results}
+\section{Results}\label{C4}
 Each Model has been trained over 20 epochs twice for each dataset, once using the Adam optimizer and once using the SGD optimizer. 
 The overall accuracy and the confusion Matrix have been recorded. In the following chapter, the results will be presented.
 
@@ -211,23 +216,8 @@ The overall accuracy and the confusion Matrix have been recorded. In the followi
 Using the SGD optimizer, the Model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
 If we look at the confusion matrix of the Model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels bird, cat \& deer, which even as a human are very difficult to distinguish from each other.
 
-\begin{table}[!htbp]
-    \caption{GoogLeNet model Results}
-    \begin{center}
-    \begin{tabular}{|c|c|c|c|c|}
-    \cline{1-5} 
-    \multicolumn{3}{|c|}{\textbf{Model accuracy}} & \multicolumn{2}{|c|}{\textbf{time/step}} \\
-    \hline 
-    \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
-    \hline
-    \textbf{\textit{MNIST}} & 11.02\% & 98.96\% & 133s 354ms & 258s 688ms \\
-    \hline
-    \textbf{\textit{CIFAR-10}} & 10.17\% & 66.34\% & 110s 351ms & 109s 349ms \\
-    \cline{1-5} 
-    \end{tabular}
-    \label{tab: GoogLeNet model accuracy}
-    \end{center}
-\end{table}
+We can see a significant reduction in accuracy and a double in training speed with the Adam optimizer.
+In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNet_CIFAR_Adam} we can clearly see, that using the Adam optimizer in both cases led to no training at all.
 
 \begin{figure}[!htbp]
     \centering
@@ -261,8 +251,23 @@ If we look at the confusion matrix of the Model using the SGD optimizer on the C
     \label{fig:GoogLeNet Confusion Matrixis}
 \end{figure}
 
-We can see a significant reduction in accuracy and a double in training speed with the Adam optimizer.
-In Figure \ref{fig:GoogLeNet Confusion Matrixis} we can clearly see, that using the Adam optimizer in both cases led to no training at all.
+\begin{table}[!htbp]
+    \caption{GoogLeNet model Results}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+    \cline{1-5} 
+    \multicolumn{3}{|c|}{\textbf{Model accuracy}} & \multicolumn{2}{|c|}{\textbf{time/step}} \\
+    \hline 
+    \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
+    \hline
+    \textbf{\textit{MNIST}} & 11.02\% & 98.96\% & 133s 354ms & 258s 688ms \\
+    \hline
+    \textbf{\textit{CIFAR-10}} & 10.17\% & 66.34\% & 110s 351ms & 109s 349ms \\
+    \cline{1-5} 
+    \end{tabular}
+    \label{tab: GoogLeNet model accuracy}
+    \end{center}
+\end{table}
 
 \subsection{VGG-16}
 ...
@@ -284,6 +289,38 @@ In Figure \ref{fig:GoogLeNet Confusion Matrixis} we can clearly see, that using 
     \end{center}
 \end{table}
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix VGG-16 MNIST Adam}
+        \label{fig:x imatrix_VGG_MNIST_Adam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix VGG-16 MNIST SGD}
+        \label{fig:x matrix_VGG_MNIST_SGD}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix VGG-16 Cifar10 Adam}
+        \label{fig:x matrix_VGG_CIFAR_Adam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix VGG-16 Cifar10 SGD}
+        \label{fig:x matrix_VGG_CIFAR_SGD}
+    \end{subfigure}
+    \caption{VGG-16 Confusion Matrices}
+    \label{fig:VGG Confusion Matrixis}
+\end{figure}
+
 \subsection{ResNet-50}
 ...
 \begin{table}[!htbp]
@@ -304,9 +341,41 @@ In Figure \ref{fig:GoogLeNet Confusion Matrixis} we can clearly see, that using 
     \end{center}
 \end{table}
 
-\section{Discussion}
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix ResNet-50 MNIST Adam}
+        \label{fig:x imatrix_ResNet_MNIST_Adam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix ResNet-50 MNIST SGD}
+        \label{fig:x matrix_ResNet_MNIST_SGD}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix ResNet-50 Cifar10 Adam}
+        \label{fig:x matrix_ResNet_CIFAR_Adam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \caption{Confusion Matrix ResNet-50 Cifar10 SGD}
+        \label{fig:x matrix_ResNet_CIFAR_SGD}
+    \end{subfigure}
+    \caption{ResNet-50 Confusion Matrices}
+    \label{fig:ResNet Confusion Matrixis}
+\end{figure}
 
-\section{Conclusion}
+\section{Discussion}\label{C5}
+
+\section{Conclusion}\label{C6}
 
 \printbibliography
 \end{document}
