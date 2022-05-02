@@ -88,8 +88,8 @@ def getDataset(set:Dataset):
 
 def mkdir_if_not_exist(dir):
     try:
-        if not path.exists(dir):
-            print('Creating directory {} for the checkpoint'.format(dir))
+        if not path.exists(dir[:-19]):
+            print('Creating directory {} for the checkpoint'.format(dir[:-19]))
             os.makedirs(dir[:-19])
     except: 
         print('Could not check for existence of directory for the checkpoints. Please make sure that the directory exists')
