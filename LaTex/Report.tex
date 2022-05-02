@@ -6,8 +6,10 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{subcaption}
+\usepackage{dirtree}
 \usepackage[style=numeric,backend=biber]{biblatex}
 \addbibresource{references.bib}
+\usepackage{hyperref}
 \begin{document}
 
 \title{Deeper Networks for Image Classification}
@@ -154,6 +156,61 @@ This is due to the unique properties the MNIST dataset has. Using the stacked la
 The Cifar10 dataset is already in RGB. Therefore, we do not need to convert it into a different colour space. 
 Therefore, this dataset has been interpolated from the shape (28,28,3) to (224,224,3) using the OpenCV library.
 
+\subsection{Project structur}
+One goal of this project, is to create a GitHub repository, that is fully documented and allows for easy replication of the  results presented in this paper. 
+In Figure \ref{dir: file strucutre}, the file structure of this project can be seen.
+All project files, including the Checkpoints are public on \href{https://github.com/devasworski/Deeper-Networks-for-Image-Classification}{GitHub}.
+\begin{figure}[!htbp]
+\dirtree{%
+ .1 /.
+ .2 Checkpoints.
+ .3 GoogLeNet.
+ .4 CIFAR.
+ .5 Adam.
+ .5 SGD.
+ .4 MNIST.
+ .5 Adam.
+ .5 SGD.
+ .3 ResNet.
+ .4 CIFAR.
+ .5 Adam.
+ .5 SGD.
+ .4 MNIST.
+ .5 Adam.
+ .5 SGD.
+ .3 VGG.
+ .4 CIFAR.
+ .5 Adam.
+ .5 SGD.
+ .4 MNIST.
+ .5 Adam.
+ .5 SGD.
+ .2 GoogleNet.ipynb.
+ .2 VGG.ipynb.
+ .2 ResNet.ipynb.
+ .2 py.
+ .3 ResNet.py.
+ .3 googLeNet.py.
+ .3 VGG.py.
+ .3 helper.py.
+ .3 datasets.py.
+ .2 Latex.
+ .3 Report.tex.
+ .3 Report.pdf.
+ .3 img.
+}
+\caption{Project file structure}
+\label{dir: file strucutre}
+\end{figure}
+
+The project has 3 entry points, which are each a Jupiter Notebook file. Each Notebook is dedicated to one Neural Network.
+At the top of the Notebooks, the Hyperparameters of the network can be adjusted as well as runtime environment variables.
+The notebooks have two modes, one for a Google Colab execution and one for a local execution.
+In case of a Google Colab execution, the notebook will use Google Drive for Checkpoints rather than the Checkpoint folder within the project.
+In order to minimize the code within the notebooks and create a clean and easing readable code, code has been outsourced into dedicated python files.
+The \verb|helper.py| file, takes care of Hyperparameters as well as evaluating the model. The \verb|dataset.py| handles the dataset download and the alterations described in Section \ref{ID}.
+The three other python files define the neural networks, corresponding to their names. Every function within the python files is documented, and the notebooks are divided into descriptive sections.
+
 \section{Results}
 Each Model has been trained over 20 epochs twice for each dataset, once using the Adam optimizer and once using the SGD optimizer. 
 The overall accuracy and the confusion Matrix have been recorded. In the following chapter, the results will be presented.
@@ -263,6 +320,8 @@ We can see a significant reduction in accuracy and a double in training speed wi
     \label{tab: ResNet-50 training time}
     \end{center}
 \end{table}
+
+\section{Discussion}
 
 \section{Conclusion}
 
