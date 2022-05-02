@@ -275,7 +275,14 @@ In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNe
 
 \subsection{VGG-16}
 As mentioned previously, this model is too big to be execution using Google Colab Pro and the only results that could be obtained, are from a heavily simplified version of the model, which expectedly performs very bed.
-As this poor performance become evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimizer. The results can be seen in Tbale \ref{tab: VGG model accuracy}
+As this poor performance become evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimizer. The results can be seen in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[scale=0.1]{img/matrix_VGG_CIFAR_SGD.png}
+    \caption{Confusion Matrix simplified VGG-16 Cifar10 SGD}
+    \label{fig:x matrix_VGG_CIFAR_SGD}
+\end{figure}
 
 \begin{table}[!htbp]
     \caption{VGG-16 model Results}
@@ -293,12 +300,6 @@ As this poor performance become evident very quickly, the model has only been tr
     \end{center}
 \end{table}
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[scale=0.08]{img/matrix_sample.png}
-    \caption{Confusion Matrix simplified VGG-16 Cifar10 SGD}
-    \label{fig:x matrix_VGG_CIFAR_SGD}
-\end{figure}
 
 \subsection{ResNet-50}
 ...
