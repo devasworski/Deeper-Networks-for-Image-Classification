@@ -87,9 +87,12 @@ def getDataset(set:Dataset):
     if set == Dataset.CIFAR: return datasets.getCifar()
 
 def mkdir_if_not_exist(dir):
-    if not path.exists(dir):
-        print('Creating directory %s for the checkpoint',dir)
-        os.makedirs(dir[:-19])
+    try:
+        if not path.exists(dir):
+            print('Creating directory {} for the checkpoint'.format(dir))
+            os.makedirs(dir[:-19])
+    except: 
+        print('Could not check for existence of directory for the checkpoints. Please make sure that the directory exists')
 
 def CheckpointCallback(path):
     """
