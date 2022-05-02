@@ -141,9 +141,10 @@ Based on layers, this model is the smallest, as it only consists of 16 layers, w
 Each block is structured in the same manner: two or three 2D convolutions, followed by one 2D MaxPolling layer. 
 The five blocks are then followed by three dense layers, one dropout of 0.5 and a final fully connected layer using \verb|softmax| as its activation function. 
 The full network architecture can be seen in Figure \ref{fig:x VGG architecture}. \cite{simonyan_very_2015}
-Unfortunately, this model was too complex for the Google Colab environment, even using Colab Plus. Therefore, the model was modified using suggestions made in the Stack Overflow forum. \cite{gervais_answer_2019}
+
+Unfortunately, this model was too complex for the Google Colab environment, even using Colab Pro. Therefore, the model was modified using suggestions made in the Stack Overflow forum. \cite{gervais_answer_2019}
 The alterations were as follows: each block with three convolutions has been reduced to two, each block with two has been reduced to one convolutional layer, and the final three dense layers have been reduced to only one dense layer. Furthermore, the batch size has been reduced to 32. 
-The rest of the model was not modified.
+The rest of the model was not modified. This led to horrible results. Due to a lack of other options for training the model, except for Google Colab, this model results will not be further discussed and the original VGG-16 architecture will be part of the project folder.
 
 \begin{figure}[!htbp]
     \centering
@@ -273,20 +274,20 @@ In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNe
 \end{table}
 
 \subsection{VGG-16}
-...
+As mentioned previously, this model is too big to be execution using Google Colab Pro and the only results that could be obtained, are from a heavily simplified version of the model, which expectedly performs very bed.
+As this poor performance become evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimizer. The results can be seen in Tbale \ref{tab: VGG model accuracy}
+
 \begin{table}[!htbp]
     \caption{VGG-16 model Results}
     \begin{center}
-    \begin{tabular}{|c|c|c|c|c|}
-    \cline{1-5} 
-    \multicolumn{3}{|c|}{\textbf{Model accuracy}} & \multicolumn{2}{|c|}{\textbf{time/step}} \\
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \multicolumn{2}{|c|}{\textbf{Model accuracy}} & \multicolumn{1}{|c|}{\textbf{time/step}} \\
     \hline 
-    \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
+    \textit{}  & \textbf{\textit{SGD}}  & \textbf{\textit{SGD}} \\
     \hline
-    \textbf{\textit{MNIST}} & \% & \% &  &  \\
-    \hline
-    \textbf{\textit{CIFAR-10}} & \% & \% &  &  \\
-    \cline{1-5} 
+    \textbf{\textit{CIFAR-10}} & 9.33\% & 152s 121ms \\
+    \cline{1-3} 
     \end{tabular}
     \label{tab: VGG model accuracy}
     \end{center}
@@ -294,34 +295,9 @@ In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNe
 
 \begin{figure}[!htbp]
     \centering
-    \begin{subfigure}[b]{0.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
-        \caption{Confusion Matrix VGG-16 MNIST Adam}
-        \label{fig:x imatrix_VGG_MNIST_Adam}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
-        \caption{Confusion Matrix VGG-16 MNIST SGD}
-        \label{fig:x matrix_VGG_MNIST_SGD}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
-        \caption{Confusion Matrix VGG-16 Cifar10 Adam}
-        \label{fig:x matrix_VGG_CIFAR_Adam}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
-        \caption{Confusion Matrix VGG-16 Cifar10 SGD}
-        \label{fig:x matrix_VGG_CIFAR_SGD}
-    \end{subfigure}
-    \caption{VGG-16 Confusion Matrices}
-    \label{fig:VGG Confusion Matrixis}
+    \includegraphics[scale=0.08]{img/matrix_sample.png}
+    \caption{Confusion Matrix simplified VGG-16 Cifar10 SGD}
+    \label{fig:x matrix_VGG_CIFAR_SGD}
 \end{figure}
 
 \subsection{ResNet-50}

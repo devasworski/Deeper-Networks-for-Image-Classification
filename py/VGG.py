@@ -16,13 +16,16 @@ def vgg16(classes=10, name="VGG_16"):
 
 	# block 1
 	x = Conv2D(filters=64, kernel_size=(3, 3), activation='relu',  padding='same')(input_layer)
+	x = Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x)
 
 	# block 2
 	x = Conv2D(filters=128, kernel_size=(3, 3), activation='relu', padding='same')(x)
+	x = Conv2D(filters=128, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x)
 
 	# block 3
+	x = Conv2D(filters=256, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = Conv2D(filters=256, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = Conv2D(filters=256, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x)
@@ -30,15 +33,19 @@ def vgg16(classes=10, name="VGG_16"):
 	# block 4
 	x = Conv2D(filters=512, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = Conv2D(filters=512, kernel_size=(3, 3), activation='relu', padding='same')(x)
+	x = Conv2D(filters=512, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x)
 
 	# block 5
+	x = Conv2D(filters=512, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = Conv2D(filters=512, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = Conv2D(filters=512, kernel_size=(3, 3), activation='relu', padding='same')(x)
 	x = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(x)
 
 	x = Flatten()(x)
 	x = Dense(units=4096, activation='relu')(x)
+	x = Dense(units=4096, activation='relu')(x)
+	x = Dense(units=1000, activation='relu')(x)
 	x = Dropout(0.5, name='dropout')(x)
 	x = Dense(classes, activation='softmax')(x)	
 	

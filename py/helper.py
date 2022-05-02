@@ -49,7 +49,9 @@ def plot_confusion_matrix(model,x_test,y_test, set:Dataset, Modelname:str, opt:O
     title = 'model: '+Modelname+' data: '+str(set.value)+' opt: '+str(opt.value)
     labels = range(10 )if set == Dataset.MNIST else ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
     pred = model.predict(x_test, batch_size=100)
-    confusion_matrix = sklearn.metrics.confusion_matrix(np.argmax(y_test, axis=1),np.argmax(pred[0], axis=1),normalize='true')
+    if Modelname == 'GoogLeNet':
+        pred = pred[0]
+    confusion_matrix = sklearn.metrics.confusion_matrix(np.argmax(y_test, axis=1),np.argmax(pred, axis=1),normalize='true')
     confusionMatrixDisplay = ConfusionMatrixDisplay(confusion_matrix, display_labels=labels)
     fig, ax = plt.subplots(figsize=(20,20))
     label_font = {'size':'18'}
