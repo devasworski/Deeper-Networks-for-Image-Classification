@@ -1,4 +1,7 @@
-from py import datasets
+try:
+    from py import datasets
+except ImportError:
+    import datasets
 from sklearn.metrics import ConfusionMatrixDisplay
 from enum import Enum
 import numpy as np
