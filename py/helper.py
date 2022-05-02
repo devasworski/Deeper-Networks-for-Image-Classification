@@ -88,7 +88,8 @@ def getDataset(set:Dataset):
 
 def mkdir_if_not_exist(dir):
     if not path.exists(dir):
-        os.mkdir(dir[:-20])
+        print('Creating directory %s for the checkpoint',dir)
+        os.makedirs(dir[:-19])
 
 def CheckpointCallback(path):
     """
