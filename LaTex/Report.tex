@@ -39,9 +39,9 @@ This document is a model and instructions for \LaTeX.
 
 \subsection{Neural Network models}
 \subsubsection{GoogLeNet}
-GoogLeNet was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. The main hallmark of this model is the improved utilization of the computing resources inside the network. It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
-This model first introduced the idea of an inception module, which can be seen in Figure \ref{fig:x inception module 5x5}.
-A second version of the model was published a year later, which then introduced an improved inception module, which can be seen in Figure \ref{fig:x inception module 3x3}.
+GoogLeNet was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. The main hallmark of this Model is the improved utilization of the computing resources inside the network. It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
+This Model first introduced the idea of an inception module, which can be seen in Figure \ref{fig:x inception module 5x5}.
+A second version of the Model was published a year later, which then introduced an improved inception module, which can be seen in Figure \ref{fig:x inception module 3x3}.
 This new version reduced computational costs, as bigger convolutions are disproportionately more expensive. Using two 3x3 convolutions instead of 5x5 is computationally less expensive while improving the performance.
 Although there are is also a V3 and V4 of GoogLeNet, for this paper, the V2 Inception has been used.
 In total the model has 22 layers.
@@ -67,7 +67,7 @@ In total the model has 22 layers.
 \subsubsection{VGG-16}
 VGG-16, is the biggest of the models used in this paper (Figure \ref{fig:x mode size}).
 It also has been developed as a submission for the ImageNet Challenge, in which it won first and second place for the localization and classification tracks, respectively.
-It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
+It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. Ultimately, this Model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
 
 \begin{figure}[!htbp]
     \centering
@@ -111,12 +111,12 @@ In the first subsection \ref{IM} the implementation of the models using the fram
 In the subsection \ref{ID} it will be explained how the datasets have been made compatible with the models.
 \subsection{Model implementation}\label{IM}
 \subsubsection{GoogLeNet}
-GoogLeNet considering only the parameters, is the most lightweight model of the three. Nevertheless, it has 108 operational layers ordered in 22 layers, which can be logically segmented into five stages, excluding input and output. 
-The first two stages of the model consist of multiple 2D convolutions, followed by a \verb|BatchNormalization| layer and a \verb|MaxPooling2D| layer. Using the \verb|BatchNormalization| layer is a unique attribute of the second version of GoogLeNet.
+GoogLeNet considering only the parameters, is the most lightweight Model of the three. Nevertheless, it has 108 operational layers ordered in 22 layers, which can be logically segmented into five stages, excluding input and output. 
+The first two stages of the Model consist of multiple 2D convolutions, followed by a \verb|BatchNormalization| layer and a \verb|MaxPooling2D| layer. Using the \verb|BatchNormalization| layer is a unique attribute of the second version of GoogLeNet.
 Stage 3 consists of two V2 inceptions, as seen in Figure \ref{fig:x inception module 3x3}, followed by a \verb|MaxPooling2D| layer.
 Stage 4 has five inceptions and two auxiliary modules, followed by a \verb|MaxPooling2D| layer. 
 In Stage 5, we have two inception modules followed by a \verb|GobalAveragePooling2D| layer, equivalent to the 7x7 convolution found in other versions of this network.
-The model then finishes with a Dropout of 0.4 and a fully connected layer using \verb|softmax| as its activation function.
+The Model then finishes with a Dropout of 0.4 and a fully connected layer using \verb|softmax| as its activation function.
 \cite{szegedy_rethinking_2015}
 
 \subsubsection{ResNet}
@@ -124,7 +124,7 @@ The model then finishes with a Dropout of 0.4 and a fully connected layer using 
 
 \subsubsection{VGG-16}
 VGG-16 is the biggest Model of the three, regarding the parameters. 
-Judging based on layers, this model is the smallest, as it only consists out of 16 layers, which are segmented into 5 blocks. 
+Judging based on layers, this Model is the smallest, as it only consists out of 16 layers, which are segmented into 5 blocks. 
 Each block is structured in the same manner. Two or three 2D Convolution, followed by one 2D MaxPolling layer. 
 The 5 blocks are then followed by 3 dense layers, one dropout of 0.5 and a final  fully connected layer using \verb|softmax| as its activation function. 
 The full network architecture can be seen in Figure \ref{fig:x VGG architecture}. \cite{simonyan_very_2015}
@@ -155,26 +155,116 @@ The Cifar10 dataset is already in RGB. Therefore, we do not need to convert it i
 Therefore, this dataset has been interpolated from the shape (28,28,3) to (224,224,3) using the OpenCV library.
 
 \section{Results}
+Each Model has been trained over 20 epochs twice for each dataset, once using the Adam optimizer and once using the SGD optimizer. 
+The overall accuracy and the confusion Matrix have been recorded. In the following chapter, the results will be presented.
+
+\subsection{GoogLeNet}
+Using the SGD optimizer, the Model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
+If we look at the confusion matrix of the Model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels 2, 3 \& 4.
+
+We can see a significant reduction in accuracy and a double in training speed with the Adam optimizer.
+
+\begin{table}[htbp]
+    \caption{GoogLeNet model accuracy}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \textit{Model accuracy} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \hline
+    \textbf{\textit{MNIST}} & 11.02\% & 98.96\% \\
+    \hline
+    \textbf{\textit{CIFAR-10}} & 10.17\% & 66.34\% \\
+    \cline{1-3} 
+    \end{tabular}
+    \label{tab: GoogLeNet model accuracy}
+    \end{center}
+\end{table}
+
+\begin{table}[htbp]
+    \caption{GoogLeNet training time}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \textit{time/step} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \hline
+    \textbf{\textit{MNIST}} & 133s 354ms & 258s 688ms \\
+    \hline
+    \textbf{\textit{CIFAR-10}} & 110s 351ms & 109s 349ms \\
+    \cline{1-3} 
+    \end{tabular}
+    \label{tab: GoogLeNet training time}
+    \end{center}
+\end{table}
+
+\subsection{VGG-16}
+
+\begin{table}[htbp]
+    \caption{VGG-16 model accuracy}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \textit{Model accuracy} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \hline
+    \textbf{\textit{MNIST}} & \% & \% \\
+    \hline
+    \textbf{\textit{CIFAR-10}} & \% & \% \\
+    \cline{1-3} 
+    \end{tabular}
+    \label{tab: VGG-16 model accuracy}
+    \end{center}
+\end{table}
+
+\begin{table}[htbp]
+    \caption{VGG-16 training time}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \textit{time/step} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \hline
+    \textbf{\textit{MNIST}} &  &  \\
+    \hline
+    \textbf{\textit{CIFAR-10}} &  &  \\
+    \cline{1-3} 
+    \end{tabular}
+    \label{tab: VGG-16 training time}
+    \end{center}
+\end{table}
+
+\subsection{ResNet-50}
+
+\begin{table}[htbp]
+    \caption{ResNet-50 model accuracy}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \textit{Model accuracy} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \hline
+    \textbf{\textit{MNIST}} & \% & \% \\
+    \hline
+    \textbf{\textit{CIFAR-10}} & \% & \% \\
+    \cline{1-3} 
+    \end{tabular}
+    \label{tab: ResNet-50 model accuracy}
+    \end{center}
+\end{table}
+
+\begin{table}[htbp]
+    \caption{ResNet-50 training time}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \cline{1-3} 
+    \textit{time/step} & \textbf{\textit{SGD}}& \textbf{\textit{Adam}} \\
+    \hline
+    \textbf{\textit{MNIST}} &  &  \\
+    \hline
+    \textbf{\textit{CIFAR-10}} &  &  \\
+    \cline{1-3} 
+    \end{tabular}
+    \label{tab: ResNet-50 training time}
+    \end{center}
+\end{table}
 
 \section{Conclusion}
-
-\subsection{Figures and Tables}
-\begin{table}[htbp]
-\caption{Table Type Styles}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
-\cline{2-4} 
-\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
-\hline
-copy& More table copy$^{\mathrm{a}}$& &  \\
-\hline
-\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
-\end{tabular}
-\label{tab1}
-\end{center}
-\end{table}
 
 \printbibliography
 \end{document}
