@@ -81,7 +81,7 @@ def printAccuracy(model,test_loader):
     :param test_loader: the test data loader
     """
     test_acc = compute_accuracy(model, test_loader, device=getTorchDevice())
-    print(f'Overall Accuracy:', test_acc,'%')
+    print(f'Overall Accuracy: {test_acc :.2f}%')
 
 def plot_confusion_matrix_torch(conf_mat, labels, title):
     """
@@ -154,17 +154,13 @@ def train(model, num_epochs, train_loader,valid_loader, test_loader, optimizer):
         for batch_idx, (features, targets) in enumerate(train_loader):
             features = features.to(getTorchDevice())
             targets = targets.to(getTorchDevice())
-            # ## FORWARD AND BACK PROP
             logits = model(features)
             loss = torch.nn.functional.cross_entropy(logits, targets)
             optimizer.zero_grad()
             loss.backward()
-            # ## UPDATE MODEL PARAMETERS
             optimizer.step()
-            # ## LOGGING
-            print(f'Epoch: {epoch+1:03d}/{num_epochs:03d} 'f'| Batch {batch_idx:04d}/{len(train_loader):04d} 'f'| Loss: {loss:.4f}')
         model.eval()
-        with torch.no_grad():  # save memory during inference
+        with torch.no_grad():
             train_acc = compute_accuracy(model, train_loader, device=getTorchDevice())
             valid_acc = compute_accuracy(model, valid_loader, device=getTorchDevice())
             print(f'Epoch: {epoch+1:03d}/{num_epochs:03d} '
