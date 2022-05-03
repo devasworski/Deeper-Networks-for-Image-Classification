@@ -47,7 +47,7 @@ def compute_confusion_matrix(model, data_loader, device):
     with torch.no_grad():
         for _, (img, label) in enumerate(data_loader):
             img = img.to(device)
-            label = label
+            label = label.to(device)
             logits = model(img)
             _, predicted_label = torch.max(logits, 1)
             all_labels.extend(label.to('cpu'))
@@ -81,7 +81,7 @@ def printAccuracy(model,test_loader):
     :param test_loader: the test data loader
     """
     test_acc = compute_accuracy(model, test_loader, device=getTorchDevice())
-    print(f'Overall Accuracy: {test_acc :.2f}%')
+    print(f'Overall Accuracy: {test_acc.to(getTorchDevice()) :.2f}%')
 
 def plot_confusion_matrix_torch(conf_mat, labels, title):
     """
