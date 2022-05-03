@@ -106,10 +106,9 @@ def plot_confusion_matrix_torch(conf_mat, labels, title):
                 cell_text += format(conf_mat[i, j], 'd')
                 cell_text += "\n" + '('
                 cell_text += format(normed_conf_mat[i, j], '.2f') + ')'
-    if labels is not None:
-        tick_marks = np.arange(len(labels))
-        plt.xticks(tick_marks, labels, rotation=90)
-        plt.yticks(tick_marks, labels)      
+    tick_marks = np.arange(len(labels))
+    plt.xticks(tick_marks, labels, rotation=90)
+    plt.yticks(tick_marks, labels)      
     ax.yaxis.set_ticks_position('left')
     ax.xaxis.set_ticks_position('bottom')
     label_font = {'size':'18'}
@@ -130,7 +129,7 @@ def plot_confusion_matrix(model,test_loader, set:helper.Dataset, Modelname:str, 
     title = 'model: '+Modelname+' data: '+str(set.value)+' opt: '+str(opt.value)
     labels = range(10 )if set == helper.Dataset.MNIST else ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
     mat = compute_confusion_matrix(model=model, data_loader=test_loader, device=torch.device('cpu'))
-    plot_confusion_matrix_torch(mat, class_names=labels, title=title)
+    plot_confusion_matrix_torch(mat, labels=labels, title=title)
     plt.show()
 
 
