@@ -2,11 +2,35 @@ from keras.datasets import mnist
 from keras.datasets import cifar10
 from sklearn.model_selection import train_test_split
 import numpy as np
-from keras.utils import np_utils
 from cv2 import cv2
+from torch.utils.data import DataLoader
+from sklearn.model_selection import train_test_split
+from torch.utils.data import Dataset
+import torchvision
+
+# https://stackoverflow.com/questions/69967363/scikit-learn-train-test-split-into-pytorch-dataloader
+
+preprocess = torchvision.transforms.Compose([
+    torchvision.transforms.ToTensor(),
+    torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+class TorchDataset(Dataset):
+
+        def __init__(self, data):
+                img, label = data
+                img_processed = []
+                for i in img:
+                        img_processed.append(preprocess(i))
+                self.x_data = img_processed
+                self.y_data = label
+        def __getitem__(self, i):
+                return self.x_data[i], self.y_data[i]
+        def __len__(self):
+                return len(self.x_data)
+
 
 num_classes=10
-final_shape=(32,32)
+final_shape=(64,64)
 
 def scale(data):
         """
@@ -21,7 +45,6 @@ def scale(data):
                 img = cv2.resize(img, final_shape, interpolation = cv2.INTER_AREA) 
                 img_rgb.append(img)
         img_rgb = np.asanyarray(img_rgb)
-        y = np_utils.to_categorical(y, num_classes)
         return img_rgb,y
 
 # based on https://fantashit.com/transfer-learning-vgg16-using-mnist/
@@ -39,7 +62,6 @@ def to_rgb(data):
                 #img_rgb.append(np.asarray(cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)))
                 img_rgb.append(np.asarray(np.dstack((img, img, img)), dtype=np.uint8))
         img_rgb = np.asanyarray(img_rgb)
-        y = np_utils.to_categorical(y, num_classes)
         return img_rgb,y
 
 def getCifar():
@@ -52,7 +74,11 @@ def getCifar():
         train = (x_train,y_train)
         test = (x_test,y_test)
         val = (x_val,y_val)
-        return map(scale, [train, test, val])
+        train, test, val = map(scale, [train, test, val])
+        train_loader = DataLoader(TorchDataset(train),batch_size=256)
+        test_loader = DataLoader(TorchDataset(test),batch_size=256)
+        val_loader = DataLoader(TorchDataset(val),batch_size=256)
+        return train_loader, test_loader, val_loader
 
 
 def getMnist():
@@ -66,4 +92,9 @@ def getMnist():
         train = (x_train,y_train)
         test = (x_test,y_test)
         val = (x_val,y_val)
-        return map(to_rgb, [train, test, val])
+        train, test, val = map(to_rgb, [train, test, val])
+        train_loader = DataLoader(TorchDataset(train),batch_size=256)
+        test_loader = DataLoader(TorchDataset(test),batch_size=256)
+        val_loader = DataLoader(TorchDataset(val),batch_size=256)
+        return train_loader, test_loader, val_loader
+
