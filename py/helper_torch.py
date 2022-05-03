@@ -144,7 +144,7 @@ def getOptimizer(opt:helper.Optimizer,model,learning_rate=0.01):
     :return: The optimizer object
     """
     if opt == helper.Optimizer.SGD: return torch.optim.SGD(model.parameters(), lr=learning_rate, momentum=0.9)
-    if opt == helper.Optimizer.Adam: return torch.optim.Adam(model.parameters(), lr=learning_rate, momentum=0.9)
+    if opt == helper.Optimizer.Adam: return torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 def train(model, num_epochs, train_loader,valid_loader, test_loader, optimizer):
     start_time = time.time()

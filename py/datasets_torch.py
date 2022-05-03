@@ -17,17 +17,16 @@ preprocess = torchvision.transforms.Compose([
 class TorchDataset(Dataset):
 
         def __init__(self, data):
-                img, label = data
+                img, labels = data
                 img_processed = []
                 for i in img:
                         img_processed.append(preprocess(i))
                 self.x_data = img_processed
-                self.y_data = label
+                self.y_data = labels
         def __getitem__(self, i):
                 return self.x_data[i], self.y_data[i]
         def __len__(self):
                 return len(self.x_data)
-
 
 num_classes=10
 final_shape=(64,64)
@@ -71,9 +70,9 @@ def getCifar():
         """
         (x_train, y_train), (x_test, y_test) = cifar10.load_data()
         x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
-        train = (x_train,y_train)
-        test = (x_test,y_test)
-        val = (x_val,y_val)
+        train = (x_train,y_train[:,0])
+        test = (x_test,y_test[:,0])
+        val = (x_val,y_val[:,0])
         train, test, val = map(scale, [train, test, val])
         train_loader = DataLoader(TorchDataset(train),batch_size=256)
         test_loader = DataLoader(TorchDataset(test),batch_size=256)

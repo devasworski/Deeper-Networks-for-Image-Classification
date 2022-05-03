@@ -148,7 +148,9 @@ The rest of the model was not modified. This led to horrible results, that can b
 
 Further, testing also confirmed, that there was no implementation error in the original Keras implementation. 
 Therefore, the only remaining alternative was to implement the model in a different framework, in this case PyTorch, which is more lightweight.
-Implementing the model as done initially with the exception of using PyTorch instead of Keras, which could then be successfully executed in Colab.
+The implementation of the model, with the initial architecture using PyTorch instead of Keras,  could then be successfully executed in Colab. 
+The only minor change that had been made, was to reduce the image size of the input for this model to 64x64 pixels, as the environment it would otherwise run out of RAM.
+
 \begin{figure}[!htbp]
     \centering
     \includegraphics[scale=0.07]{img/VGG.png}
@@ -188,14 +190,18 @@ The Checkpoints can be downloaded from \href{https://drive.google.com/drive/fold
  .3 ResNet.
  .3 VGG.
  .2 GoogleNet.ipynb.
+ .2 VGG\_torch.ipynb.
  .2 VGG.ipynb.
  .2 ResNet.ipynb.
  .2 py.
  .3 ResNet.py.
  .3 googLeNet.py.
  .3 VGG.py.
+ .3 VGG\_torch.py.
  .3 helper.py.
  .3 datasets.py.
+ .3 helper\_torch.py.
+ .3 datasets\_torch.py.
  .2 Latex.
  .3 Report.tex.
  .3 Report.pdf.
@@ -205,12 +211,12 @@ The Checkpoints can be downloaded from \href{https://drive.google.com/drive/fold
 \label{dir: file strucutre}
 \end{figure}
 
-The project has 3 entry points, which are each a Jupiter Notebook file. Each Notebook is dedicated to one Neural Network.
+The project has four entry points, which are each a Jupiter Notebook file. Each notebook is dedicated to one Neural Network.
 At the top of the Notebooks, the Hyperparameters of the network can be adjusted as well as runtime environment variables.
-The notebooks have two modes, one for a Google Colab execution and one for a local execution.
+The notebooks have two modes, one for a Google Colab execution and one for local execution.
 In case of a Google Colab execution, the notebook will use Google Drive for Checkpoints rather than the Checkpoint folder within the project.
 In order to minimize the code within the notebooks and create a clean and easing readable code, code has been outsourced into dedicated python files.
-The \verb|helper.py| file, takes care of Hyperparameters as well as evaluating the model. The \verb|dataset.py| handles the dataset download and the alterations described in Section \ref{ID}.
+The \verb|helper.py| file takes care of Hyperparameters as well as evaluates the model. The \verb|dataset.py| handles the dataset download and the alterations described in Section \ref{ID}.
 The three other python files define the neural networks, corresponding to their names. Every function within the python files is documented, and the notebooks are divided into descriptive sections.
 
 
@@ -303,7 +309,10 @@ As this poor performance of the simplified  version becomes evident very quickly
     \end{center}
 \end{table}
 
-To fix this issue, the model has been reimplemented in PyTorch, which was then more lightweight and could be executed.
+To fix this issue, the model has been reimplemented in PyTorch. As mentioned previously, this model only uses images with the siez 64x64 pixels as input.
+Despite that, the model performed well on both the MNIST and the CIFAR dataset using the SGD optimizer. The results can be found in table \ref{tab: VGG-16 PyTorch model accuracy}.
+The Confusion Matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig:VGG-16 PyTorch Confusion Matrixis}.
+
 
 \begin{table}[!htbp]
     \caption{VGG-16 PyTorch model Results}
@@ -314,7 +323,7 @@ To fix this issue, the model has been reimplemented in PyTorch, which was then m
     \hline 
     \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
     \hline
-    \textbf{\textit{MNIST}} & \% & 98.89\% &  &  \\
+    \textbf{\textit{MNIST}} & \% & 99.12\% &  & 77s  \\
     \hline
     \textbf{\textit{CIFAR-10}} & \% & \% &  &  \\
     \cline{1-5} 
@@ -332,9 +341,9 @@ To fix this issue, the model has been reimplemented in PyTorch, which was then m
         \label{fig:x imatrix_GG-16_PyTorch_MNIST_Adam}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.22\textwidth}
+    \begin{subfigure}[b]{0.21\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_vgg_torch_MNIST_SGD.png}
         \caption{Confusion Matrix VGG-16 PyTorch MNIST SGD}
         \label{fig:x matrix_GG-16_PyTorch_MNIST_SGD}
     \end{subfigure}
