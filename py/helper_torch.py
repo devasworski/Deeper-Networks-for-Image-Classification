@@ -128,7 +128,7 @@ def plot_confusion_matrix(model,test_loader, set:helper.Dataset, Modelname:str, 
     """
     title = 'model: '+Modelname+' data: '+str(set.value)+' opt: '+str(opt.value)
     labels = range(10 )if set == helper.Dataset.MNIST else ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-    mat = compute_confusion_matrix(model=model, data_loader=test_loader, device=torch.device('cpu'))
+    mat = compute_confusion_matrix(model=model, data_loader=test_loader, device=torch.device(getTorchDevice()))
     plot_confusion_matrix_torch(mat, labels=labels, title=title)
     plt.show()
 
