@@ -6,7 +6,7 @@ from keras.utils import np_utils
 from cv2 import cv2
 
 num_classes=10
-final_shape=(32,32)
+final_shape=(224,224)
 
 def scale(data):
         """

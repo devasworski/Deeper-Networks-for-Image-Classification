@@ -1,7 +1,7 @@
 # code based on https://medium.com/towards-data-science/building-a-resnet-in-keras-e8f1322a49ba
 # and https://machinelearningknowledge.ai/keras-implementation-of-resnet-50-architecture-from-scratch/
 
-from keras.layers import Input, Conv2D, BatchNormalization, Add, AveragePooling2D, Activation, ZeroPadding2D, MaxPooling2D
+from keras.layers import Input, Conv2D, BatchNormalization, Add, AveragePooling2D, Activation, ZeroPadding2D, MaxPooling2D, Flatten, Dropout, Dense
 from keras import Model
 
 def identity_block(X, f, F1, F2, F3):
@@ -113,5 +113,9 @@ def resnet(classes=10, name="ResNet"):
     x = identity_block(x, 3, 512, 512, 2048)
 
     x = AveragePooling2D(pool_size=(2, 2), padding='same')(x)
+
+    x = Flatten()(x)
+    x = Dropout(0.5)(x)
+    x = Dense(classes, activation='softmax')(x)
 
     return Model(input_layer, x, name=name)

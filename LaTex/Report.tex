@@ -126,15 +126,6 @@ In Stage 5, we have two inception modules followed by a \verb|GobalAveragePoolin
 The model then finishes with a Dropout of 0.4 and a fully connected layer using \verb|softmax| as its activation function.
 \cite{szegedy_rethinking_2015}
 
-\subsubsection{ResNet}
-For this paper, the ResNet-50 Model has been chosen. 
-The number 50 meaning, that the model consist out of 50 layers of residual blocks (Figure \ref{fig:x resblock}) stacked on top of each other. 
-As mentioned before, there are different versions of ResNet, which all hold a different amount of layers. 
-Based on the original paper results, ResNet-50 has the second best results, behind ResNet-110. \cite{he_deep_2015}.  
-For this paper, the ResNet version designed for the ImageNet dataset has been used. There is a version in the original paper, that has been adapter to use (32,32,3). 
-In an effort to keep results between the networks comparable, the version accepting smaller images has not been used.
-The main final network architecture consists out of 4 blocks, each starting with a convolutional block, followed by a varying number of identity blocks (2,3,5,2).
-
 \subsubsection{VGG-16}
 VGG-16 is the biggest model of the three regarding the parameters. 
 Based on layers, this model is the smallest, as it only consists of 16 layers, which are segmented into 5 blocks. 
@@ -157,6 +148,18 @@ The only minor change that had been made, was to reduce the image size of the in
     \caption{VGG-16 architecture \cite{noauthor_forks_nodate}}
     \label{fig:x VGG architecture}
 \end{figure}
+
+
+\subsubsection{ResNet}
+For this paper, the ResNet-50 Model has been chosen. 
+The number 50 means that the model consists of 50 layers of residual blocks (Figure \ref{fig:x resblock}) stacked on top of each other. 
+As mentioned before, there are different versions of ResNet, which all hold a different amount of layers. 
+Based on the original paper results, ResNet-50 has the second-best results, behind ResNet-110. \cite{he_deep_2015}.  
+For this paper, the ResNet version designed for the ImageNet dataset has been used. There is a version in the original paper that has been adapted to use (32,32,3). 
+In an effort to keep results between the networks comparable, the version accepting smaller images has not been used.
+The main final network architecture consists of 4 blocks, each starting with a convolutional block, followed by a varying number of identity blocks (2,3,5,2).
+
+Unfortunately, this ResNet implementation experienced the same issues as the original VGG-16 implementation in Keras. Consequently, the model was reimplemented using PyTorch.
 
 \subsection{The Datasets}\label{ID}
 
