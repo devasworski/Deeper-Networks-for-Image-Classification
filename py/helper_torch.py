@@ -172,14 +172,20 @@ def train(model, num_epochs, train_loader,valid_loader, test_loader, optimizer):
     test_acc = compute_accuracy(model, test_loader, device=getTorchDevice())
     print(f'Test accuracy {test_acc :.2f}%')
 
-def getDataset(set:helper.Dataset):
+def getDataset(set:helper.Dataset,batch_size=256):
     """
-    > It returns the MNIST dataset if the argument is `Dataset.MNIST`, and the CIFAR dataset if the
-    argument is `Dataset.CIFAR`
+    It returns a tuple of two things:
     
-    :param set: The dataset to use
-    :type set: Selected Dataset
-    :return: A tuple of the training and testing data
+    1. A PyTorch `DataLoader` object, which is a Python object that knows how to iterate over a dataset
+    and return batches of data.
+    2. A tuple of two integers, which are the dimensions of the images in the dataset
+    
+    :param set: the dataset to use
+    :type set: helper.Dataset
+    :param batch_size: The number of images to be processed in a single batch, defaults to 256
+    (optional)
+    :return: A tuple of the training and test data.
     """
-    if set == helper.Dataset.MNIST: return datasets_torch.getMnist()
-    if set == helper.Dataset.CIFAR: return datasets_torch.getCifar()
+
+    if set == helper.Dataset.MNIST: return datasets_torch.getMnist(batch_size=batch_size)
+    if set == helper.Dataset.CIFAR: return datasets_torch.getCifar(batch_size=batch_size)

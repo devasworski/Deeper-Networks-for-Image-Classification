@@ -63,10 +63,13 @@ def to_rgb(data):
         img_rgb = np.asanyarray(img_rgb)
         return img_rgb,y
 
-def getCifar():
+def getCifar(batch_size):
         """
-        It loads the CIFAR-10 dataset, splits it into training, validation, and test sets, and scales images
-        :return: a tuple of tuples. Each tuple contains the data and the labels.
+        It loads the CIFAR-10 dataset, splits it into training, validation, and test sets, scales the data,
+        and returns the data as PyTorch DataLoaders
+        
+        :param batch_size: The number of images to be passed through the network at once
+        :return: train_loader, test_loader, val_loader
         """
         (x_train, y_train), (x_test, y_test) = cifar10.load_data()
         x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
@@ -74,17 +77,19 @@ def getCifar():
         test = (x_test,y_test[:,0])
         val = (x_val,y_val[:,0])
         train, test, val = map(scale, [train, test, val])
-        train_loader = DataLoader(TorchDataset(train),batch_size=256)
-        test_loader = DataLoader(TorchDataset(test),batch_size=256)
-        val_loader = DataLoader(TorchDataset(val),batch_size=256)
+        train_loader = DataLoader(TorchDataset(train),batch_size=batch_size)
+        test_loader = DataLoader(TorchDataset(test),batch_size=batch_size)
+        val_loader = DataLoader(TorchDataset(val),batch_size=batch_size)
         return train_loader, test_loader, val_loader
 
 
-def getMnist():
+def getMnist(batch_size):
         """
-        It loads the MNIST dataset, splits it into training, validation and test sets, and converts the
-        images to RGB
-        :return: a tuple of tuples. Each tuple contains the data and the labels.
+        It loads the MNIST dataset, splits it into training, validation and test sets, converts the images
+        to RGB, and returns a data loader for each of the three sets
+        
+        :param batch_size: The number of images to be passed through the network at once
+        :return: train_loader, test_loader, val_loader
         """
         (x_train, y_train), (x_test, y_test) = mnist.load_data()
         x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.20, shuffle=True ,random_state=42)
@@ -92,8 +97,8 @@ def getMnist():
         test = (x_test,y_test)
         val = (x_val,y_val)
         train, test, val = map(to_rgb, [train, test, val])
-        train_loader = DataLoader(TorchDataset(train),batch_size=256)
-        test_loader = DataLoader(TorchDataset(test),batch_size=256)
-        val_loader = DataLoader(TorchDataset(val),batch_size=256)
+        train_loader = DataLoader(TorchDataset(train),batch_size=batch_size)
+        test_loader = DataLoader(TorchDataset(test),batch_size=batch_size)
+        val_loader = DataLoader(TorchDataset(val),batch_size=batch_size)
         return train_loader, test_loader, val_loader
 
