@@ -196,8 +196,10 @@ The Checkpoints can be downloaded from \href{https://drive.google.com/drive/fold
  .2 VGG\_torch.ipynb.
  .2 VGG.ipynb.
  .2 ResNet.ipynb.
+ .2 ResNet\_torch.ipynb.
  .2 py.
  .3 ResNet.py.
+ .3 ResNet\_torch.py.
  .3 googLeNet.py.
  .3 VGG.py.
  .3 VGG\_torch.py.
@@ -214,7 +216,7 @@ The Checkpoints can be downloaded from \href{https://drive.google.com/drive/fold
 \label{dir: file strucutre}
 \end{figure}
 
-The project has four entry points, which are each a Jupiter Notebook file. Each notebook is dedicated to one Neural Network.
+The project has five entry points, which are each a Jupiter Notebook file. Each notebook is dedicated to one Neural Network.
 At the top of the Notebooks, the Hyperparameters of the network can be adjusted as well as runtime environment variables.
 The notebooks have two modes, one for a Google Colab execution and one for local execution.
 In case of a Google Colab execution, the notebook will use Google Drive for Checkpoints rather than the Checkpoint folder within the project.
@@ -286,12 +288,12 @@ In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNe
 \end{table}
 
 \subsection{VGG-16}
-As mentioned previously, the initial  model implementated in Keras was too big to be executed using Google Colab Pro and  only a heavily simplified version of the model, which expectedly performs very bed, could be executed.
-As this poor performance of the simplified  version becomes evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimizer. The results can be seen in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}.
+As mentioned previously, the initial model implementated in Keras was too big to be executed using Google Colab Pro and  only a heavily simplified version of the model, which expectedly performs very bed, could be executed.
+As this poor performance of the simplified version becomes evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimizer. The results can be seen in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[scale=0.1]{img/matrix_VGG_CIFAR_SGD.png}
+    \includegraphics[scale=0.05]{img/matrix_VGG_CIFAR_SGD.png}
     \caption{Confusion Matrix simplified VGG-16 Cifar10 SGD}
     \label{fig:x matrix_VGG_CIFAR_SGD}
 \end{figure}
@@ -361,9 +363,9 @@ The results obtained by this mode, are very similar to the GoogLeNet model, whic
     \hline 
     \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
     \hline
-    \textbf{\textit{MNIST}} & 11.02\% & 99.12\% & 78s & 77s  \\
+    \textbf{\textit{MNIST}} & 11.02\% & 99.12\% & 70s 480ms & 70s 200ms  \\
     \hline
-    \textbf{\textit{CIFAR-10}} & 9.94\% & 77.10\% & 63s & 63s \\
+    \textbf{\textit{CIFAR-10}} & 9.94\% & 77.10\% & 61s 800ms & 61s 600ms \\
     \cline{1-5} 
     \end{tabular}
     \label{tab: VGG-16 PyTorch model accuracy}
@@ -371,9 +373,12 @@ The results obtained by this mode, are very similar to the GoogLeNet model, whic
 \end{table}
 
 \subsection{ResNet-50}
-...
+While the Keras version of the model was not executable on Google Colab, the PyTorch version did train.
+In Table \ref{tab: ResNet-50 model accuracy} the accuracy and the training time can be seen, while in Figure \ref{fig:ResNet Confusion Matrixis} the Confusion Matrices for the model can be found.
+The accuracy of the model differs from the accuracy of the others, as this model performs equally well using both the SGD and the Adam optimiser.
+
 \begin{table}[!htbp]
-    \caption{ResNet-50 model Results}
+    \caption{ResNet-50 PyTorch model Results}
     \begin{center}
     \begin{tabular}{|c|c|c|c|c|}
     \cline{1-5} 
@@ -381,9 +386,9 @@ The results obtained by this mode, are very similar to the GoogLeNet model, whic
     \hline 
     \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
     \hline
-    \textbf{\textit{MNIST}} & \% & \% &  &  \\
+    \textbf{\textit{MNIST}} & 98.73\% & 99.18\% & 51s & 49s 200ms  \\
     \hline
-    \textbf{\textit{CIFAR-10}} & \% & \% &  &  \\
+    \textbf{\textit{CIFAR-10}} & 65.99\% & 71.72\% & 42s 600ms & 66s 656ms \\
     \cline{1-5} 
     \end{tabular}
     \label{tab: ResNet-50 model accuracy}
@@ -394,37 +399,60 @@ The results obtained by this mode, are very similar to the GoogLeNet model, whic
     \centering
     \begin{subfigure}[b]{0.22\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_resnet_MNIST_Adam.png}
         \caption{Confusion Matrix ResNet-50 MNIST Adam}
         \label{fig:x imatrix_ResNet_MNIST_Adam}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.22\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_resnet_MNIST_Adam.png}
         \caption{Confusion Matrix ResNet-50 MNIST SGD}
         \label{fig:x matrix_ResNet_MNIST_SGD}
     \end{subfigure}
     \begin{subfigure}[b]{0.22\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_resnet_CIFAR_Adam.png}
         \caption{Confusion Matrix ResNet-50 Cifar10 Adam}
         \label{fig:x matrix_ResNet_CIFAR_Adam}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.22\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_resnet_CIFAR_SGD.png}
         \caption{Confusion Matrix ResNet-50 Cifar10 SGD}
         \label{fig:x matrix_ResNet_CIFAR_SGD}
     \end{subfigure}
-    \caption{ResNet-50 Confusion Matrices}
+    \caption{ResNet-50 PyTorch Confusion Matrices}
     \label{fig:ResNet Confusion Matrixis}
 \end{figure}
 
 \section{Discussion}\label{C5}
+Two major observations were made during the experiments. 
+One being the bad performance of the Adam optimizer, the other being the bad performance of all clasifiers on the bird, cat \& deer or dog classes if the CIFAR dataset.
 
+While literature suggests that the Adam optimizer has worse generalization performance than SGD \cite{gupta_adam_nodate}, the results found in this experiment come at a surprise.
+As the performance of the models with the SGD optimizer are very well, it could be argued, that this scenario is a special case, in which the Adam optimizer performs particularly bad.
+The one exception to this is the ResNet-50 model, which performs similarly well using both the Adam and the SGD optimizer.
+
+The second observation was the issues in distinguishing the bird, cat \& deer or dog classes if the CIFAR dataset. While the model all perform excellent on the other classes these classes seem to be more difficult to clasify.
+While this could be an indication of a Minority class, this can be out rules as the dataset are pre-revisioned and each class is equality represented.
+Neither an overfitting of a particular class can be observed, but rather a well distributed confusion between these classes.
+These leads to the conclusion, that these classes are too difficult to distinguishing for the models. 
+The argument is, that this images often cointain to little information to distinguish them. 
+To test this arguemnt a  small test group of 10 people has been asked individually after been show one picture each of the bird, cat \& deer category, given the 10 labels to classify them.
+While these results are not representative, 30\% of the people were not able to correctly classify the category and nobody could classify the bird correctly. Resulting in a performance of 56\%.
+Based on these non representative results, it can be argued, that the results in the CIFAR dataset are very well.
+
+Looking back at the initially assumption based of Figure \ref{fig:x mode size}, it can be said, that this did almost correspond to the finding.
+The ResNet model performed overall the best and the GoogLeNet model performed the worst.
+With the expection that the VGG-16 model performed 0.06\% better on the MNIST dataset compared to the ResNet model. This is within the margin of error.
 \section{Conclusion}\label{C6}
+While the results obtained in the experiment differed slightly from the initial assumption, the overall experiment can be considered successfully.
+All three models have been successfully implemented and trained, using both datasets.
+
+In retrospective the one change that would be made, should this or a similar project be attempted in the future is to use the PyTorch library instead of the Keras framework.
+While the implementation in both Keras and PyTorch was successfully, the Keras implementation did cause issues when executing on the Google Colab GPU, which did cost a lot of time.
 
 \printbibliography
 \end{document}
