@@ -37,16 +37,18 @@ class resnet(torch.nn.Module):
     def __init__(self, num_classes):
         super(resnet, self).__init__()
 
+        self.in_channels = 64
+        self.expansion = 4
         self.conv1 = torch.nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3)
         self.bn1 = torch.nn.BatchNorm2d(64)
         self.relu = torch.nn.ReLU()
         self.maxpool = torch.nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
         # ResNetLayers
-        self.layer1 = self.make_layers(layers=3, channels=64, stride=1)
-        self.layer2 = self.make_layers(layers=4, channels=128, stride=2)
-        self.layer3 = self.make_layers(layers=6, channels=256, stride=2)
-        self.layer4 = self.make_layers(layers=3, channels=512, stride=2)
+        self.layer1 = self.make_layers(num_layers=3, channels=64, stride=1)
+        self.layer2 = self.make_layers(num_layers=4, channels=128, stride=2)
+        self.layer3 = self.make_layers(num_layers=6, channels=256, stride=2)
+        self.layer4 = self.make_layers(num_layers=3, channels=512, stride=2)
 
         self.avgpool = torch.nn.AdaptiveAvgPool2d((1, 1))
         self.fc = torch.nn.Linear(512 * self.expansion, num_classes)
@@ -67,7 +69,7 @@ class resnet(torch.nn.Module):
         x = self.fc(x)
         return x
 
-    def make_layers(self, layers, channels, stride):
+    def make_layers(self, num_layers, channels, stride):
         layers = []
         identity_downsample = torch.nn.Sequential(
             torch.nn.Conv2d(self.in_channels, channels*self.expansion, kernel_size=1, stride=stride),
@@ -75,6 +77,6 @@ class resnet(torch.nn.Module):
             )
         layers.append(Block(self.in_channels, channels, identity_downsample, stride))
         self.in_channels = channels * self.expansion
-        for i in range(layers - 1):
+        for _ in range(num_layers-1):
             layers.append(Block(self.in_channels, channels))
         return torch.nn.Sequential(*layers)
