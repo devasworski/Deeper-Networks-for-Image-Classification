@@ -46,7 +46,7 @@ class vgg16(torch.nn.Module):
                 torch.nn.ReLU(),    
                 torch.nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2))             
         )
-		height, width = 3, 3 ## you may want to change that depending on the input image size
+		height, width = 3, 3
 		self.classifier = torch.nn.Sequential(
             torch.nn.Linear(512*height*width, 4096),
             torch.nn.ReLU(True),

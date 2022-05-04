@@ -309,34 +309,15 @@ As this poor performance of the simplified  version becomes evident very quickly
     \end{center}
 \end{table}
 
-To fix this issue, the model has been reimplemented in PyTorch. As mentioned previously, this model only uses images with the siez 64x64 pixels as input.
-Despite that, the model performed well on both the MNIST and the CIFAR dataset using the SGD optimizer. The results can be found in table \ref{tab: VGG-16 PyTorch model accuracy}.
-The Confusion Matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig:VGG-16 PyTorch Confusion Matrixis}.
-
-
-\begin{table}[!htbp]
-    \caption{VGG-16 PyTorch model Results}
-    \begin{center}
-    \begin{tabular}{|c|c|c|c|c|}
-    \cline{1-5} 
-    \multicolumn{3}{|c|}{\textbf{Model accuracy}} & \multicolumn{2}{|c|}{\textbf{time/step}} \\
-    \hline 
-    \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
-    \hline
-    \textbf{\textit{MNIST}} & \% & 99.12\% &  & 77s  \\
-    \hline
-    \textbf{\textit{CIFAR-10}} & \% & \% &  &  \\
-    \cline{1-5} 
-    \end{tabular}
-    \label{tab: VGG-16 PyTorch model accuracy}
-    \end{center}
-\end{table}
+To fix this issue, the model has been reimplemented in PyTorch.
+As mentioned previously, this model only uses images with the siez 64x64 pixels as input.
+Despite that, the model performed well on both the MNIST and the CIFAR dataset using the SGD optimizer. 
 
 \begin{figure}[!htbp]
     \centering
-    \begin{subfigure}[b]{0.22\textwidth}
+    \begin{subfigure}[b]{0.21\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_vgg_torch_mnist_adam.png}
         \caption{Confusion Matrix VGG-16 PyTorch MNIST Adam}
         \label{fig:x imatrix_GG-16_PyTorch_MNIST_Adam}
     \end{subfigure}
@@ -349,14 +330,14 @@ The Confusion Matrices for the MNIST and the CIFAR dataset can be found in Figur
     \end{subfigure}
     \begin{subfigure}[b]{0.22\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_vgg_torch_CIFAR_Adam.png}
         \caption{Confusion Matrix VGG-16 PyTorch Cifar10 Adam}
         \label{fig:x matrix_VGG-16_PyTorch_CIFAR_Adam}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.22\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/matrix_sample.png}
+        \includegraphics[width=\textwidth]{img/matrix_vgg_torch_CIFAR_SGD.png}
         \caption{Confusion Matrix VGG-16 PyTorch Cifar10 SGD}
         \label{fig:x matrix_VGG-16_PyTorch_CIFAR_SGD}
     \end{subfigure}
@@ -364,6 +345,27 @@ The Confusion Matrices for the MNIST and the CIFAR dataset can be found in Figur
     \label{fig:VGG-16 PyTorch Confusion Matrixis}
 \end{figure}
 
+The Confusion Matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig:VGG-16 PyTorch Confusion Matrixis}.
+The results can be found in table \ref{tab: VGG-16 PyTorch model accuracy}.
+The results obtained by this mode, are very similar to the GoogLeNet model, which just slightly better accuracies.
+
+\begin{table}[!htbp]
+    \caption{VGG-16 PyTorch model Results}
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+    \cline{1-5} 
+    \multicolumn{3}{|c|}{\textbf{Model accuracy}} & \multicolumn{2}{|c|}{\textbf{time/step}} \\
+    \hline 
+    \textit{} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} & \textbf{\textit{Adam}} & \textbf{\textit{SGD}} \\
+    \hline
+    \textbf{\textit{MNIST}} & 11.02\% & 99.12\% & 78s & 77s  \\
+    \hline
+    \textbf{\textit{CIFAR-10}} & 9.94\% & 77.10\% & 63s & 63s \\
+    \cline{1-5} 
+    \end{tabular}
+    \label{tab: VGG-16 PyTorch model accuracy}
+    \end{center}
+\end{table}
 
 \subsection{ResNet-50}
 ...
