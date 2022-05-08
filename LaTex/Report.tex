@@ -36,21 +36,23 @@ GoogLeNet, ResNet, VGG-16, MNIST, Image Classification, Deep Learning
 
 \section{Introduction}\label{C1}
 This paper represents a comparison between different Convolutional Neural Networks. In particular, the models GoogLeNet, VGG-16 and ResNet. These three models are compared on the datasets MNIST and Cifar10.
-This document is split in 6 chapters. The \ref{C1}. Chapter represents a short introduction to the topic and serves as and overview of the document.
-The \ref{C2}. Chapter presented a Literature Review containing a short overview and history of the models and the datasets.
+This document is split in 6 chapters. Chapter \ref{C1} represents a short introduction to the topic and serves as and overview of the document.
+Chapter \ref{C2} presents a literature review containing a short overview and history of the models and the datasets.
 Chapter \ref{C3} describes the implementation of the models, the conducted experiment and the dataset usage.
-In Chapter \ref{C4} the Finding of the experiments are presented, which are then discussed in Chapter \ref{C5}.
+In Chapter \ref{C4} the findings of the experiments are presented, which are then discussed in Chapter \ref{C5}.
 Followed by a conclusion in Chapter \ref{C6}
 
 \section{Literature Review}\label{C2}
 
 \subsection{Neural Network models}
 \subsubsection{GoogLeNet}
-GoogLeNet was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. The main hallmark of this model is the improved utilization of the computing resources inside the network. It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
+GoogLeNet was initially developed as a submission for the ImageNet Large-Scale Visual Recognition Challenge 2014, which it won. 
+The main hallmark of this model is the improved utilisation of the computing resources inside the network. 
+It has 12 times fewer parameters than the winner of 2012 (AlexNet) but performs significantly better. \cite{szegedy_going_2014}
 This model first introduced the idea of an inception module, which can be seen in Figure \ref{fig:x inception module 5x5}.
-A second version of the model was published a year later, which then introduced an improved inception module, which can be seen in Figure \ref{fig:x inception module 3x3}.
-This new version reduced computational costs, as bigger convolutions are disproportionately more expensive. Using two 3x3 convolutions instead of 5x5 is computationally less expensive while improving the performance.
-Although there are is also a V3 and V4 of GoogLeNet, for this paper, the V2 Inception has been used.
+A second version of the model was published a year later, which introduced an improved inception module, as shown in Figure \ref{fig:x inception module 3x3}.
+This new version reduced computational costs, as bigger convolutions are disproportionately more expensive. Using two 3x3 convolutions instead of 5x5 is computationally less expensive while also improving the performance.
+Although there is also a V3 and V4 of GoogLeNet, for this paper, the V2 Inception has been used.
 In total the model has 22 layers.
 \begin{figure}[!htbp]
      \centering
@@ -72,32 +74,38 @@ In total the model has 22 layers.
 \end{figure}
 
 \subsubsection{VGG-16}
-VGG-16, is the biggest of the models used in this paper (Figure \ref{fig:x mode size}).
-It also has been developed as a submission for the ImageNet Challenge, in which it won first and second place for the localization and classification tracks, respectively.
-It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
+VGG-16 is the biggest of the models used in this paper (Figure \ref{fig:x mode size}).
+It also has been developed as a submission for the ImageNet Challenge, in which it won first and second place for the localisation and classification tracks, respectively.
+It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. 
+Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[scale=0.35]{img/model_sizes.png}
-    \caption{top-1 one-crop accuracy versus amount of operations required (circle size represents the amount of parameters)}
+    \caption{top-1 one-crop accuracy versus amount of operations required (circle size represents the amount of parameters) \cite{canziani_analysis_2017}}
     \label{fig:x mode size}
 \end{figure}
 
 \subsubsection{ResNet}
-ResNet, has the highest amount of layers. While there are multiple versions, for this paper a 50 layer version has been chosen.
+ResNet has the highest amount of layers. 
+While there are multiple versions, for this paper a 50 layer version has been chosen.
+In Figure \ref{fig:x mode size}, it can be observed that the model size is in between GoogLeNet and VGG-16, yet the best result can be expected according to this comparison.
+ResNet has been built with the goal of easing the training of deep networks. The network design is based on chaining multiple residual learning blocks on a row. One residual learning block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
+
 \begin{figure}[!htbp]
     \centering
     \includegraphics[scale=0.2]{img/residual block.png}
     \caption{Residual learning: a building block \cite{he_deep_2015}}
     \label{fig:x resblock}
 \end{figure}
-In Figure \ref{fig:x mode size}, it can be observed that the model size is in between GoogLeNet and VGG-16, yet the best result can be expected according to this comparison.
-ResNet has been built with the goal of easing the training of deep networks. The network design is based on chaining multiple residual learning blocks on a row. One residual learning block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
 
 
 \subsection{Image datasets}
 \subsubsection{MNIST}
-The MNIST database contains 70,000 28x28 black and white images. 60,000 images are for training and 10,000 images for testing. The images' portrait handwritten numbers from 0 to 9. \cite{yann_lecun_mnist_nodate} Examples of the classes can be seen in Figure \ref{fig:x MNIST image samples}.
+the MNIST database contains 70,000 28x28 black and white images. 
+60,000 images are for training and 10,000 images for testing. 
+The images portrait handwritten numbers from 0 to 9. \cite{yann_lecun_mnist_nodate} 
+Examples of the classes can be seen in Figure \ref{fig:x MNIST image samples}.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[scale=0.35]{img/mnist_sample.jpeg}
@@ -105,7 +113,10 @@ The MNIST database contains 70,000 28x28 black and white images. 60,000 images a
     \label{fig:x MNIST image samples}
 \end{figure}
 \subsubsection{Cifar10}
-The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. The classes are mutually exclusive.\cite{noauthor_cifar-10_nodate} Examples of the classes can be seen in Figure \ref{fig:x Cifar10 image samples}.
+the CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. 
+There are 50000 training images and 10000 test images. 
+The classes are mutually exclusive.\cite{noauthor_cifar-10_nodate} 
+Examples of the classes can be seen in Figure \ref{fig:x Cifar10 image samples}.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[scale=0.45]{img/cifar_10_sample.png}
@@ -118,8 +129,10 @@ In the first subsection \ref{IM} the implementation of the models using the fram
 In the subsection \ref{ID} it will be explained how the datasets have been made compatible with the models.
 \subsection{Model implementation}\label{IM}
 \subsubsection{GoogLeNet}
-GoogLeNet considering only the parameters, is the most lightweight model of the three. Nevertheless, it has 108 operational layers ordered in 22 layers, which can be logically segmented into five stages, excluding input and output. 
-The first two stages of the model consist of multiple 2D convolutions, followed by a \verb|BatchNormalization| layer and a \verb|MaxPooling2D| layer. Using the \verb|BatchNormalization| layer is a unique attribute of the second version of GoogLeNet.
+GoogLeNet, considering only the parameters, is the most lightweight model of the three. 
+Nevertheless, it has 108 operational layers ordered in 22 layers, which can be logically segmented into five stages, excluding input and output. 
+The first two stages of the model consist of multiple 2D convolutions, followed by a \verb|BatchNormalization| layer and a \verb|MaxPooling2D| layer. 
+Using the \verb|BatchNormalization| layer is a unique attribute of the second version of GoogLeNet.
 Stage 3 consists of two V2 inceptions, as seen in Figure \ref{fig:x inception module 3x3}, followed by a \verb|MaxPooling2D| layer.
 Stage 4 has five inceptions and two auxiliary modules, followed by a \verb|MaxPooling2D| layer. 
 In Stage 5, we have two inception modules followed by a \verb|GobalAveragePooling2D| layer, equivalent to the 7x7 convolution found in other versions of this network.
@@ -133,14 +146,15 @@ Each block is structured in the same manner: two or three 2D convolutions, follo
 The five blocks are then followed by three dense layers, one dropout of 0.5 and a final fully connected layer using \verb|softmax| as its activation function. 
 The full network architecture can be seen in Figure \ref{fig:x VGG architecture}. \cite{simonyan_very_2015}
 
-Unfortunately, this model was too complex for the Google Colab environment, as the error \verb|"ResourceExhaustedError:| \verb|OOM when allocating tensor"| has been given. Therefore, the model was modified using suggestions made in the Stack Overflow forum. \cite{gervais_answer_2019}
+Unfortunately, this model was too complex for the Google Colab environment, as the error \verb|"ResourceExhaustedError:| \verb|OOM when allocating tensor"| has been given. 
+Therefore, the model was modified using suggestions made in the Stack Overflow forum. \cite{gervais_answer_2019}
 The alterations were as follows: each block with three convolutions has been reduced to two, each block with two has been reduced to one convolutional layer, and the final three dense layers have been reduced to only one dense layer. Furthermore, the batch size has been reduced to 32. 
-The rest of the model was not modified. This led to horrible results, that can be found in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}. \footnote{During later stages of the project, while exchanging with classmates, it was brought to my attention, that Google  does limit the usage of Colab Pro after a while, which is presumably the cause for this issue. }
+The rest of the model was not modified. This led to disappointing results, that can be found in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}. \footnote{During later stages of the project, while exchanging with classmates, it was brought to my attention, that Google  does limit the usage of Colab Pro after a while, which is presumably the cause for this issue. }
 
-Further, testing also confirmed, that there was no implementation error in the original Keras implementation. 
-Therefore, the only remaining alternative was to implement the model in a different framework, in this case PyTorch, which is more lightweight.
+Further, testing also confirmed that there was no implementation error in the original Keras implementation. 
+Therefore, the only remaining alternative was to implement the model in a different library, in this case PyTorch, which is more lightweight.
 The implementation of the model, with the initial architecture using PyTorch instead of Keras,  could then be successfully executed in Colab. 
-The only minor change that had been made, was to reduce the image size of the input for this model to 64x64 pixels, as the environment it would otherwise run out of RAM.
+The only minor change that has been made, was to reduce the image size of the input for this model to 64x64 pixels, as the environment would otherwise run out of RAM.
 
 \begin{figure}[!htbp]
     \centering
@@ -151,7 +165,7 @@ The only minor change that had been made, was to reduce the image size of the in
 
 
 \subsubsection{ResNet}
-For this paper, the ResNet-50 Model has been chosen. 
+for this paper, the ResNet-50 Model has been chosen. 
 The number 50 means that the model consists of 50 layers of residual blocks (Figure \ref{fig:x resblock}) stacked on top of each other. 
 As mentioned before, there are different versions of ResNet, which all hold a different amount of layers. 
 Based on the original paper results, ResNet-50 has the second-best results, behind ResNet-110. \cite{he_deep_2015}.  
@@ -163,27 +177,29 @@ Unfortunately, this ResNet implementation experienced the same issues as the ori
 
 \subsection{The Datasets}\label{ID}
 
-The dataset used in this paper both have a resolution of 28x28 pixels. On top, the Cifar10 dataset has three colour channels, while the MNIST dataset only has one grey channel.
-This represents an issue, as the Neural Networks has initially been designed to work with the Microsoft ImageNet dataset. This dataset has 3 colour channels and a resolution of 224x224 pixels.
-The goal was not to change the input of the models, as this would have significant implications for the layers following, resulting in a significant change in the model design.
-Therefore, the datasets have been altered as follows to fit the input dimensions of the models.
+The datasets used in this paper both have a resolution of 28x28 pixels. 
+On top, the Cifar10 dataset has three colour channels, while the MNIST dataset only has one grey channel.
+This represents an issue, as the Neural Networks has initially been designed to work with the Microsoft ImageNet dataset. 
+The ImageNet dataset has three colour channels and a resolution of 224x224 pixels.
+The datasets have been altered as follows to fit the input dimensions of the models.
+As previously mentioned, for the PyTorch model, the datasets have only been upscaled to the dimensions (64,64,3).
+They have then been wrapped within a DataLoader class.
 
 \subsubsection{MNIST dataset alterations}
-The MNIST dataset has the shape (28,28,1), while our models required an input shape of (224,224,3). 
+the MNIST dataset has the shape (28,28,1), while our models required an input shape of (224,224,3). 
 In order to change the dimensionality, the OpenCV library has been used. Using OpenCV, the image has been interpolated to fit the 224x224 image size. 
 Afterwards, the image was stacked three times to obtain our three-channel input. Although, there is the OpenCV function \verb|cv2.cvtColor(src, cv2.COLOR_GRAY2RGB)|, 
-which can convert from greyscale to RGB. The results are not different from our stacked layers. 
+which can convert from greyscale to RGB, the results are not different from our stacked layers. 
 This is due to the unique properties the MNIST dataset has. Using the stacked layers is computational lightweight.
 
 \subsubsection{Cifar10 dataset alterations}
-The Cifar10 dataset is already in RGB. Therefore, we do not need to convert it into a different colour space. 
+the Cifar10 dataset is already in RGB. Therefore, we do not need to convert it into a different colour space. 
 Therefore, this dataset has been interpolated from the shape (28,28,3) to (224,224,3) using the OpenCV library.
 
 \subsection{Project structure}
 This project aims to create a GitHub repository that is fully documented and allows for easy replication of the results presented in this paper. 
 In Figure \ref{dir: file strucutre}, the file structure of this project can be seen.
-All project files, are public on \href{https://github.com/devasworski/Deeper-Networks-for-Image-Classification}{GitHub}.
-The Checkpoints can be downloaded from \href{https://drive.google.com/drive/folders/1fXxzepBOfI-so3I4ZbZv16Pux7InrMIv?usp=sharing}{Google Drive}.
+All project files are public on \href{https://github.com/devasworski/Deeper-Networks-for-Image-Classification}{GitHub}.
 
 \begin{figure}[!htbp]
 \dirtree{%
@@ -216,26 +232,29 @@ The Checkpoints can be downloaded from \href{https://drive.google.com/drive/fold
 \label{dir: file strucutre}
 \end{figure}
 
-The project has five entry points, which are each a Jupiter Notebook file. Each notebook is dedicated to one Neural Network.
-At the top of the Notebooks, the Hyperparameters of the network can be adjusted as well as runtime environment variables.
+The project has five entry points, which are each a Jupiter notebook file. 
+Each notebook is dedicated to one neural network.
+At the top of the notebooks, the hyperparameters of the network can be adjusted as well as runtime environment variables.
 The notebooks have two modes, one for a Google Colab execution and one for local execution.
-In case of a Google Colab execution, the notebook will use Google Drive for Checkpoints rather than the Checkpoint folder within the project.
-In order to minimize the code within the notebooks and create a clean and easing readable code, code has been outsourced into dedicated python files.
-The \verb|helper.py| file takes care of Hyperparameters as well as evaluates the model. The \verb|dataset.py| handles the dataset download and the alterations described in Section \ref{ID}.
-The three other python files define the neural networks, corresponding to their names. Every function within the python files is documented, and the notebooks are divided into descriptive sections.
+In case of a Google Colab execution, the notebook will use Google Drive for checkpoints rather than the checkpoint folder within the project.
+In order to minimise the code within the notebooks and create a clean and easing readable code, parts of it have been outsourced into dedicated python files.
+The \verb|helper.py| \& \verb|helper_torch.py| files take care of hyperparameters as well as evaluate the model. 
+The \verb|dataset.py| \& \verb|dataset_torch.py| files handle the dataset download and the alterations described in Section \ref{ID}.
+The other python files define the neural networks, corresponding to their names. Every function within the python files is documented, and the notebooks are divided into descriptive sections.
 
 
 \section{Results}\label{C4}
-Each model has been trained over 20 epochs twice for each dataset, once using the Adam optimizer and once using the SGD optimizer. 
-The overall accuracy and the confusion Matrix have been recorded. In the following chapter, the results will be presented.
+Each model has been trained over 20 epochs twice for each dataset, once using the Adam optimiser and once using the SGD optimiser. 
+The overall accuracy and the confusion matrix have been recorded. 
+In the following chapter, the results will be presented.
 
 \subsection{GoogLeNet}
 
-Using the SGD optimizer, the model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
-If we look at the confusion matrix of the model using the SGD optimizer on the CIFAR-10 dataset, we can see that the low accuracy comes from a localized inadequate recognition of the labels bird, cat \& deer, which even as a human are very difficult to distinguish from each other.
+Using the SGD optimiser, the model performed very well on the MNIST dataset but was suboptimal on the CIFAR-10 dataset. 
+If we look at the confusion matrix of the model using the SGD optimiser on the CIFAR-10 dataset, we can see that the low accuracy comes from a localised inadequate recognition of the labels bird, cat \& deer, which even as a human are very difficult to distinguish from each other.
 
-We can see a significant reduction in accuracy and a double in training speed with the Adam optimizer.
-In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNet_CIFAR_Adam} we can clearly see, that using the Adam optimizer in both cases led to no training at all.
+We can see a significant reduction in accuracy and a double in training speed with the Adam optimiser.
+In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNet_CIFAR_Adam} we can clearly see, that using the Adam optimiser in both cases led to no training at all.
 
 \begin{figure}[!htbp]
     \centering
@@ -288,8 +307,8 @@ In Figure \ref{fig:x imatrix_GoogLeNet_MNIST_Adam} \& \ref{fig:x matrix_GoogLeNe
 \end{table}
 
 \subsection{VGG-16}
-As mentioned previously, the initial model implementated in Keras was too big to be executed using Google Colab Pro and  only a heavily simplified version of the model, which expectedly performs very bed, could be executed.
-As this poor performance of the simplified version becomes evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimizer. The results can be seen in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}.
+As previously mentioned, the initial model implemented in Keras was too big to be executed using Google Colab Pro and only a heavily simplified version of the model, which expectedly performed very bad, could be executed.
+As this poor performance of the simplified version becomes evident very quickly, the model has only been trained on the CIFAR dataset using the SGD optimiser. The results can be seen in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}.
 
 \begin{figure}[!htbp]
     \centering
@@ -315,8 +334,8 @@ As this poor performance of the simplified version becomes evident very quickly,
 \end{table}
 
 To fix this issue, the model has been reimplemented in PyTorch.
-As mentioned previously, this model only uses images with the siez 64x64 pixels as input.
-Despite that, the model performed well on both the MNIST and the CIFAR dataset using the SGD optimizer. 
+As previously mentioned, this model only uses images with the size 64x64 pixels as input.
+Despite that, the model performed well on both the MNIST and the CIFAR dataset using the SGD optimiser. 
 
 \begin{figure}[!htbp]
     \centering
@@ -350,9 +369,9 @@ Despite that, the model performed well on both the MNIST and the CIFAR dataset u
     \label{fig:VGG-16 PyTorch Confusion Matrixis}
 \end{figure}
 
-The Confusion Matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig:VGG-16 PyTorch Confusion Matrixis}.
-The results can be found in table \ref{tab: VGG-16 PyTorch model accuracy}.
-The results obtained by this mode, are very similar to the GoogLeNet model, which just slightly better accuracies.
+The confusion matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig:VGG-16 PyTorch Confusion Matrixis}.
+The results can be found in Table \ref{tab: VGG-16 PyTorch model accuracy}.
+The results obtained by this model are very similar to the GoogLeNet model, with just slightly better accuracies.
 
 \begin{table}[!htbp]
     \caption{VGG-16 PyTorch model Results}
@@ -373,8 +392,8 @@ The results obtained by this mode, are very similar to the GoogLeNet model, whic
 \end{table}
 
 \subsection{ResNet-50}
-While the Keras version of the model was not executable on Google Colab, the PyTorch version did train.
-In Table \ref{tab: ResNet-50 model accuracy} the accuracy and the training time can be seen, while in Figure \ref{fig:ResNet Confusion Matrixis} the Confusion Matrices for the model can be found.
+While the Keras version of the model was not executable on Google Colab, the PyTorch version did.
+In Table \ref{tab: ResNet-50 model accuracy} the accuracy and the training time can be seen, while in Figure \ref{fig:ResNet Confusion Matrixis} the confusion matrices for the model can be found.
 The accuracy of the model differs from the accuracy of the others, as this model performs equally well using both the SGD and the Adam optimiser.
 
 \begin{table}[!htbp]
@@ -429,30 +448,32 @@ The accuracy of the model differs from the accuracy of the others, as this model
 
 \section{Discussion}\label{C5}
 Two major observations were made during the experiments. 
-One being the bad performance of the Adam optimizer, the other being the bad performance of all clasifiers on the bird, cat \& deer or dog classes if the CIFAR dataset.
+One being the bad performance of the Adam optimiser, the other being the bad performance of all classifiers on the bird, cat \& deer or dog classes of the CIFAR dataset.
 
-While literature suggests that the Adam optimizer has worse generalization performance than SGD \cite{gupta_adam_nodate}, the results found in this experiment come at a surprise.
-As the performance of the models with the SGD optimizer are very well, it could be argued, that this scenario is a special case, in which the Adam optimizer performs particularly bad.
-The one exception to this is the ResNet-50 model, which performs similarly well using both the Adam and the SGD optimizer.
+While literature suggests that the Adam optimiser has worse generalisation performance than SGD \cite{gupta_adam_nodate}, the results found in this experiment come at a surprise.
+As the models using the SGD optimiser perform very well, it could be argued, that this scenario is a special case, in which the Adam optimiser performs particularly bad.
+The argument that Adam is not well suited for Deep Learning and smaller batch sizes are required to achieve well performance, could also be disproven during testing of the GoogLeNet model with Batch sizes as small as one.
+The one exception to this behaviour is the ResNet-50 model, which performs similarly well using both the Adam and the SGD optimiser.
 
-The second observation was the issues in distinguishing the bird, cat \& deer or dog classes if the CIFAR dataset. While the model all perform excellent on the other classes these classes seem to be more difficult to clasify.
-While this could be an indication of a Minority class, this can be out rules as the dataset are pre-revisioned and each class is equality represented.
+The second observation was the issues in distinguishing the bird, cat \& deer or dog classes if the CIFAR dataset. 
+While the model all perform excellent on the other classes, these classes seem to be more difficult to classify.
+While this could be an indication of a minority class, this can be out ruled as the dataset are pre-revisioned and each class is equality represented.
 Neither an overfitting of a particular class can be observed, but rather a well distributed confusion between these classes.
-These leads to the conclusion, that these classes are too difficult to distinguishing for the models. 
-The argument is, that this images often cointain to little information to distinguish them. 
-To test this arguemnt a  small test group of 10 people has been asked individually after been show one picture each of the bird, cat \& deer category, given the 10 labels to classify them.
-While these results are not representative, 30\% of the people were not able to correctly classify the category and nobody could classify the bird correctly. Resulting in a performance of 56\%.
-Based on these non representative results, it can be argued, that the results in the CIFAR dataset are very well.
+This leads to the conclusion that these classes are too difficult to distinguishing for the models. 
+The argument is that these images often contain too little information to distinguish them. 
+To test this argument, a small test group of 10 people has been asked individually to classify a picture of the bird, car \& deer category, given the 10 labels.
+While these results are not representative, 30\% of the people were not able to correctly classify the category and nobody could classify the bird correctly, resulting in a performance of 56\%.
+Based on these non-representative results, it can be argued that the results with the CIFAR dataset are very well.
 
-Looking back at the initially assumption based of Figure \ref{fig:x mode size}, it can be said, that this did almost correspond to the finding.
-The ResNet model performed overall the best and the GoogLeNet model performed the worst.
-With the expection that the VGG-16 model performed 0.06\% better on the MNIST dataset compared to the ResNet model. This is within the margin of error.
+Looking back at the initial assumption based of Figure \ref{fig:x mode size}, it can be said that this did almost correspond to the finding.
+The ResNet model performed overall the best and the GoogLeNet model performed the worst, with the exception that the VGG-16 model performed 0.06\% better on the MNIST dataset compared to the ResNet model. 
+This is within the margin of error.
 \section{Conclusion}\label{C6}
-While the results obtained in the experiment differed slightly from the initial assumption, the overall experiment can be considered successfully.
+While the results obtained in the experiment differed slightly from the initial assumption, the overall experiment can be considered successful.
 All three models have been successfully implemented and trained, using both datasets.
 
-In retrospective the one change that would be made, should this or a similar project be attempted in the future is to use the PyTorch library instead of the Keras framework.
-While the implementation in both Keras and PyTorch was successfully, the Keras implementation did cause issues when executing on the Google Colab GPU, which did cost a lot of time.
+In retrospective, the one change that would be made, should this or a similar project be attempted in the future, is to use the PyTorch library instead of the Keras framework.
+While the implementation in both Keras and PyTorch was successful, the Keras implementation caused issues when executing on the Google Colab GPU, which costed a significant amount of time.
 
 \printbibliography
 \end{document}
