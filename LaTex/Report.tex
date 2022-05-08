@@ -36,7 +36,7 @@ GoogLeNet, ResNet, VGG-16, MNIST, Image Classification, Deep Learning
 
 \section{Introduction}\label{C1}
 This paper represents a comparison between different Convolutional Neural Networks. In particular, the models GoogLeNet, VGG-16 and ResNet. These three models are compared on the datasets MNIST and Cifar10.
-This document is split in 6 chapters. Chapter \ref{C1} represents a short introduction to the topic and serves as and overview of the document.
+This document is split into 6 chapters. Chapter \ref{C1} represents a short introduction to the topic and serves as an overview of the document.
 Chapter \ref{C2} presents a literature review containing a short overview and history of the models and the datasets.
 Chapter \ref{C3} describes the implementation of the models, the conducted experiment and the dataset usage.
 In Chapter \ref{C4} the findings of the experiments are presented, which are then discussed in Chapter \ref{C5}.
@@ -76,8 +76,8 @@ In total the model has 22 layers.
 \subsubsection{VGG-16}
 VGG-16 is the biggest of the models used in this paper (Figure \ref{fig:x mode size}).
 It also has been developed as a submission for the ImageNet Challenge, in which it won first and second place for the localisation and classification tracks, respectively.
-It consists out of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. 
-Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{simonyan_very_2015}.
+It consists of 16 layers and uses only 3x3 convolutions. Although it has fewer layers than GoogLeNet, each layer is computationally more complex. 
+Ultimately, this model resulted in better scores than the GoogLeNet V1 \cite{simonyan_very_2015}.
 
 \begin{figure}[!htbp]
     \centering
@@ -90,7 +90,7 @@ Ultimately, this model resulted in better scores then the GoogLeNet V1 \cite{sim
 ResNet has the highest amount of layers. 
 While there are multiple versions, for this paper a 50 layer version has been chosen.
 In Figure \ref{fig:x mode size}, it can be observed that the model size is in between GoogLeNet and VGG-16, yet the best result can be expected according to this comparison.
-ResNet has been built with the goal of easing the training of deep networks. The network design is based on chaining multiple residual learning blocks on a row. One residual learning block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
+ResNet has been built to ease the training of deep networks. The network design is based on chaining multiple residual learning blocks on a row. One residual learning block can be seen in Figure \ref{fig:x resblock}. \cite{he_deep_2015}
 
 \begin{figure}[!htbp]
     \centering
@@ -149,10 +149,10 @@ The full network architecture can be seen in Figure \ref{fig:x VGG architecture}
 Unfortunately, this model was too complex for the Google Colab environment, as the error \verb|"ResourceExhaustedError:| \verb|OOM when allocating tensor"| has been given. 
 Therefore, the model was modified using suggestions made in the Stack Overflow forum. \cite{gervais_answer_2019}
 The alterations were as follows: each block with three convolutions has been reduced to two, each block with two has been reduced to one convolutional layer, and the final three dense layers have been reduced to only one dense layer. Furthermore, the batch size has been reduced to 32. 
-The rest of the model was not modified. This led to disappointing results, that can be found in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}. \footnote{During later stages of the project, while exchanging with classmates, it was brought to my attention, that Google  does limit the usage of Colab Pro after a while, which is presumably the cause for this issue. }
+The rest of the model was not modified. This led to disappointing results, which can be found in Table \ref{tab: VGG model accuracy} and Figure \ref{fig:x matrix_VGG_CIFAR_SGD}. \footnote{During later stages of the project, while exchanging with classmates, it was brought to my attention, that Google does limit the usage of Colab Pro after a while, which is presumably the cause for this issue. }
 
 Further, testing also confirmed that there was no implementation error in the original Keras implementation. 
-Therefore, the only remaining alternative was to implement the model in a different library, in this case PyTorch, which is more lightweight.
+Therefore, the only remaining alternative was to implement the model in a different library, in this case, PyTorch, which is more lightweight.
 The implementation of the model, with the initial architecture using PyTorch instead of Keras,  could then be successfully executed in Colab. 
 The only minor change that has been made, was to reduce the image size of the input for this model to 64x64 pixels, as the environment would otherwise run out of RAM.
 
@@ -179,7 +179,7 @@ Unfortunately, this ResNet implementation experienced the same issues as the ori
 
 The datasets used in this paper both have a resolution of 28x28 pixels. 
 On top, the Cifar10 dataset has three colour channels, while the MNIST dataset only has one grey channel.
-This represents an issue, as the Neural Networks has initially been designed to work with the Microsoft ImageNet dataset. 
+This represents an issue, as the neural networks have initially been designed to work with the Microsoft ImageNet dataset. 
 The ImageNet dataset has three colour channels and a resolution of 224x224 pixels.
 The datasets have been altered as follows to fit the input dimensions of the models.
 As previously mentioned, for the PyTorch model, the datasets have only been upscaled to the dimensions (64,64,3).
@@ -236,7 +236,7 @@ The project has five entry points, which are each a Jupiter notebook file.
 Each notebook is dedicated to one neural network.
 At the top of the notebooks, the hyperparameters of the network can be adjusted as well as runtime environment variables.
 The notebooks have two modes, one for a Google Colab execution and one for local execution.
-In case of a Google Colab execution, the notebook will use Google Drive for checkpoints rather than the checkpoint folder within the project.
+In the case of a Google Colab execution, the notebook will use Google Drive for checkpoints rather than the checkpoint folder within the project.
 In order to minimise the code within the notebooks and create a clean and easing readable code, parts of it have been outsourced into dedicated python files.
 The \verb|helper.py| \& \verb|helper_torch.py| files take care of hyperparameters as well as evaluate the model. 
 The \verb|dataset.py| \& \verb|dataset_torch.py| files handle the dataset download and the alterations described in Section \ref{ID}.
@@ -312,7 +312,7 @@ As this poor performance of the simplified version becomes evident very quickly,
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[scale=0.05]{img/matrix_VGG_CIFAR_SGD.png}
+    \includegraphics[scale=0.10]{img/matrix_VGG_CIFAR_SGD.png}
     \caption{Confusion Matrix simplified VGG-16 Cifar10 SGD}
     \label{fig:x matrix_VGG_CIFAR_SGD}
 \end{figure}
@@ -334,7 +334,7 @@ As this poor performance of the simplified version becomes evident very quickly,
 \end{table}
 
 To fix this issue, the model has been reimplemented in PyTorch.
-As previously mentioned, this model only uses images with the size 64x64 pixels as input.
+As previously mentioned, this model only uses images with the size of 64x64 pixels as input.
 Despite that, the model performed well on both the MNIST and the CIFAR dataset using the SGD optimiser. 
 
 \begin{figure}[!htbp]
@@ -366,10 +366,10 @@ Despite that, the model performed well on both the MNIST and the CIFAR dataset u
         \label{fig:x matrix_VGG-16_PyTorch_CIFAR_SGD}
     \end{subfigure}
     \caption{VGG-16 PyTorch Confusion Matrices}
-    \label{fig:VGG-16 PyTorch Confusion Matrixis}
+    \label{fig: VGG-16 PyTorch Confusion Matrixis}
 \end{figure}
 
-The confusion matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig:VGG-16 PyTorch Confusion Matrixis}.
+The confusion matrices for the MNIST and the CIFAR dataset can be found in Figure \ref{fig: VGG-16 PyTorch Confusion Matrixis}.
 The results can be found in Table \ref{tab: VGG-16 PyTorch model accuracy}.
 The results obtained by this model are very similar to the GoogLeNet model, with just slightly better accuracies.
 
@@ -393,7 +393,7 @@ The results obtained by this model are very similar to the GoogLeNet model, with
 
 \subsection{ResNet-50}
 While the Keras version of the model was not executable on Google Colab, the PyTorch version did.
-In Table \ref{tab: ResNet-50 model accuracy} the accuracy and the training time can be seen, while in Figure \ref{fig:ResNet Confusion Matrixis} the confusion matrices for the model can be found.
+In Table \ref{tab: ResNet-50 model accuracy} the accuracy and the training time can be seen, while in Figure \ref{fig: ResNet Confusion Matrixis} the confusion matrices for the model can be found.
 The accuracy of the model differs from the accuracy of the others, as this model performs equally well using both the SGD and the Adam optimiser.
 
 \begin{table}[!htbp]
@@ -443,37 +443,37 @@ The accuracy of the model differs from the accuracy of the others, as this model
         \label{fig:x matrix_ResNet_CIFAR_SGD}
     \end{subfigure}
     \caption{ResNet-50 PyTorch Confusion Matrices}
-    \label{fig:ResNet Confusion Matrixis}
+    \label{fig: ResNet Confusion Matrixis}
 \end{figure}
 
 \section{Discussion}\label{C5}
 Two major observations were made during the experiments. 
-One being the bad performance of the Adam optimiser, the other being the bad performance of all classifiers on the bird, cat \& deer or dog classes of the CIFAR dataset.
+One is the bad performance of the Adam optimiser, the other is the bad performance of all classifiers on the bird, cat \& deer or dog classes of the CIFAR dataset.
 
-While literature suggests that the Adam optimiser has worse generalisation performance than SGD \cite{gupta_adam_nodate}, the results found in this experiment come at a surprise.
+While literature suggests that the Adam optimiser has worse generalisation performance than SGD \cite{gupta_adam_nodate}, the results found in this experiment come as a surprise.
 As the models using the SGD optimiser perform very well, it could be argued, that this scenario is a special case, in which the Adam optimiser performs particularly bad.
-The argument that Adam is not well suited for Deep Learning and smaller batch sizes are required to achieve well performance, could also be disproven during testing of the GoogLeNet model with Batch sizes as small as one.
+The argument that Adam is not well suited for Deep Learning and that smaller batch sizes are required to achieve well performance could also be disproven during testing of the GoogLeNet model with Batch sizes as small as one.
 The one exception to this behaviour is the ResNet-50 model, which performs similarly well using both the Adam and the SGD optimiser.
 
 The second observation was the issues in distinguishing the bird, cat \& deer or dog classes if the CIFAR dataset. 
-While the model all perform excellent on the other classes, these classes seem to be more difficult to classify.
-While this could be an indication of a minority class, this can be out ruled as the dataset are pre-revisioned and each class is equality represented.
-Neither an overfitting of a particular class can be observed, but rather a well distributed confusion between these classes.
-This leads to the conclusion that these classes are too difficult to distinguishing for the models. 
+While the model all perform excellently in the other classes, these classes seem to be more difficult to classify.
+While this could be an indication of a minority class, this can be out ruled as the dataset is pre-revisioned and each class is equally represented.
+Neither overfitting of a particular class can be observed, but rather a well-distributed confusion between these classes.
+This leads to the conclusion that these classes are too difficult to distinguish for the models. 
 The argument is that these images often contain too little information to distinguish them. 
-To test this argument, a small test group of 10 people has been asked individually to classify a picture of the bird, car \& deer category, given the 10 labels.
+To test this argument, a small test group of 10 people has been asked individually to classify a picture of the bird, car and deer category, given the 10 labels.
 While these results are not representative, 30\% of the people were not able to correctly classify the category and nobody could classify the bird correctly, resulting in a performance of 56\%.
 Based on these non-representative results, it can be argued that the results with the CIFAR dataset are very well.
 
-Looking back at the initial assumption based of Figure \ref{fig:x mode size}, it can be said that this did almost correspond to the finding.
+Looking back at the initial assumption based on Figure \ref{fig:x mode size}, it can be said that this did almost correspond to the finding.
 The ResNet model performed overall the best and the GoogLeNet model performed the worst, with the exception that the VGG-16 model performed 0.06\% better on the MNIST dataset compared to the ResNet model. 
 This is within the margin of error.
 \section{Conclusion}\label{C6}
 While the results obtained in the experiment differed slightly from the initial assumption, the overall experiment can be considered successful.
 All three models have been successfully implemented and trained, using both datasets.
 
-In retrospective, the one change that would be made, should this or a similar project be attempted in the future, is to use the PyTorch library instead of the Keras framework.
-While the implementation in both Keras and PyTorch was successful, the Keras implementation caused issues when executing on the Google Colab GPU, which costed a significant amount of time.
+In retrospect, the one change that would be made, should this or a similar project be attempted in the future, is to use the PyTorch library instead of the Keras framework.
+While the implementation in both Keras and PyTorch was successful, the Keras implementation caused issues when executing on the Google Colab GPU, which cost a significant amount of time.
 
 \printbibliography
 \end{document}
